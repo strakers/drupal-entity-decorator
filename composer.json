@@ -1,0 +1,26 @@
+{
+    "name": "strakez/drupal-entity-decorator",
+    "description": "Implements a decorator pattern to access and customize typed access to an entity's properties and methods",
+    "type": "drupal-module",
+    "require": {
+        "php": ">=8.1",
+        "drupal/core": "^9.5 || ^10"
+    },
+    "require-dev": {
+        "drush/drush": "^11 || ^12",
+        "drupal/devel": "^5.1"
+    },
+    "license": "GNUv3",
+    "autoload": {
+        "psr-4": {
+            "Drupal\\entity_decorator\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "strakers",
+            "email": "s.straker@utoronto.ca"
+        }
+    ],
+    "minimum-stability": "dev"
+}

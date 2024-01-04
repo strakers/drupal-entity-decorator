@@ -1,0 +1,10 @@
+name: Config Page Decorator
+description: Provides Config Page decorator class
+type: module
+core_version_requirement: ^9.5 || ^10
+version: "1.0.0"
+project: "config_page_decorator"
+package: "Config Page Decorator"
+dependencies:
+  - "entity_decorator:entity_decorator"
+  - "config_pages:config_pages"

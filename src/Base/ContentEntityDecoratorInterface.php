@@ -2,15 +2,15 @@
 
 namespace Drupal\entity_decorator\Base;
 
-use Drupal\Core\Entity\ContentEntityBase;
+use Drupal\Core\Entity\EntityBase;
 
 interface ContentEntityDecoratorInterface extends EntityDecoratorInterface {
 
   /**
    * Exposes the entity for access to its methods and properties
-   * @return \Drupal\Core\Entity\ContentEntityBase
+   * @return \Drupal\Core\Entity\EntityBase
    */
-  public function getEntity(): ContentEntityBase;
+  public function getEntity(): EntityBase;
 
   /**
    * Update an entity's data field value

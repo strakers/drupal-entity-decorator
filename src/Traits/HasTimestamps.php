@@ -4,9 +4,6 @@ namespace Drupal\entity_decorator\Traits;
 
 use DateTime;
 
-/**
- * @method mixed getFieldData
- */
 trait HasTimestamps {
 
   /**

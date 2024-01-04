@@ -71,8 +71,9 @@ abstract class EntityDecoratorBase implements EntityDecoratorInterface {
    */
   public static function decorate(EntityBase $entity): static {
     $desiredClass = static::getEntityClassName();
+    $class = $entity::class;
     if (!is_a($entity, $desiredClass)) {
-      throw new \ValueError("Given entity must be of type '{$desiredClass}', but '{$entity::class}' was given.");
+      throw new \ValueError("Given entity must be of type '{$desiredClass}', but '{$class}' was given.");
     }
     return new static($entity);
   }

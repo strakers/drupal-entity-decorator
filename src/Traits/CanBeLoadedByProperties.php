@@ -19,10 +19,10 @@ trait CanBeLoadedByProperties {
         ->loadByProperties($props);
     }
     catch(\Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException $e) {
-      static::$logger->warning(sprintf('The entity type "%s" is an invalid plugin definition', $entity_type_id));
+      static::logger()->warning(sprintf('The entity type "%s" is an invalid plugin definition', $entity_type_id));
     }
     catch(\Drupal\Component\Plugin\Exception\PluginNotFoundException $e) {
-      static::$logger->warning(sprintf('The entity type "%s" not found', $entity_type_id));
+      static::logger()->warning(sprintf('The entity type "%s" not found', $entity_type_id));
     }
     return [];
   }

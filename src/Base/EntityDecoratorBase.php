@@ -9,6 +9,8 @@ use Drupal\entity_decorator\Exceptions\BadMethodCallException;
 use Psr\Log\LoggerInterface;
 use Drupal;
 
+use function Drupal\entity_decorator\Support\Utility\toSnakeCase;
+
 abstract class EntityDecoratorBase implements EntityDecoratorInterface {
   use CanBeLoadedByProperties;
 
@@ -94,7 +96,8 @@ abstract class EntityDecoratorBase implements EntityDecoratorInterface {
 
     // if the module name is not passed, retrieves the name from the class path
     if (!$module) {
-      $module = static::getEntityTypeFromClassName();
+      preg_match('/\\\\?Drupal\\\\([a-z_]+?)\\\\/i', $class, $matches);
+      $module =  end($matches);
     }
 
     if (! class_exists($class))
@@ -130,14 +133,15 @@ abstract class EntityDecoratorBase implements EntityDecoratorInterface {
   abstract protected static function getClassOrModelName(): string;
 
   /**
+   * Retrieve entity type name from defined class path of the entity
    * @param string|null $class
    *
    * @return string
    */
   protected static function getEntityTypeFromClassName(?string $class = null): string {
-    $class ??= static::getEntityClassName();
-    preg_match('/\\\\?Drupal\\\\([a-z_]+?)\\\\/i', $class, $matches);
-    return end($matches);
+    $class ??= static::getEntityClassName(); // toSnakeCase
+    preg_match('/\\\\([a-z_]+?)$/i', $class, $matches);
+    return toSnakeCase(end($matches));
   }
 
   /**

@@ -24,6 +24,13 @@ trait HasFields {
    */
   public function getFieldData(string $field_name, $fallback = null) {
     $field = $this->getEntity()->get($field_name);
+
+    // if field returns raw value
+    if (!is_object($field)) {
+      return $field ?: $fallback;
+    }
+
+    // otherwise extract value
     $value_array = $field->getValue();
 
     // if empty, use fallback value instead

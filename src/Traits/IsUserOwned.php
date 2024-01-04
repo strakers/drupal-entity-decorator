@@ -3,7 +3,7 @@
 namespace Drupal\entity_decorator\Traits;
 
 use Drupal\user\UserInterface;
-use Drupal\entity_decorator\Support\Utility\has_trait;
+use function Drupal\entity_decorator\Support\Utility\has_trait;
 
 trait IsUserOwned {
 
@@ -27,9 +27,13 @@ trait IsUserOwned {
    *
    * @return array
    */
-  public static function loadAllOwned(string|int|UserInterface $owner): array {
+  public static function loadAllOwned(string|int|UserInterface $owner = 0): array {
     $user_field_key = 'uid';
     $static_class = static::class;
+
+    if (!$owner) {
+      $owner = \Drupal::currentUser();
+    }
 
     // first check if load by properties static method exists
     if (! method_exists($static_class, 'loadByProperties')) return [];

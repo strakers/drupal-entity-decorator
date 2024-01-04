@@ -3,6 +3,7 @@
 namespace Drupal\entity_decorator\Traits;
 
 use Drupal\user\UserInterface;
+use \Drupal\Core\Session\AccountProxyInterface;
 use function Drupal\entity_decorator\Support\Utility\has_trait;
 
 trait IsUserOwned {
@@ -45,7 +46,7 @@ trait IsUserOwned {
     }
 
     // pull the user id, regardless if a string, int, or user object is passed
-    $owner_id = $owner instanceof UserInterface
+    $owner_id = $owner instanceof UserInterface || $owner instanceof AccountProxyInterface
       ? $owner->id()
       : $owner;
 

@@ -94,8 +94,7 @@ abstract class EntityDecoratorBase implements EntityDecoratorInterface {
 
     // if the module name is not passed, retrieves the name from the class path
     if (!$module) {
-      preg_match('/\\\\?Drupal\\\\([a-z_]+?)\\\\/i', $class, $matches);
-      $module = end($matches);
+      $module = static::getEntityTypeFromClassName();
     }
 
     if (! class_exists($class))
@@ -129,6 +128,17 @@ abstract class EntityDecoratorBase implements EntityDecoratorInterface {
    * @return string
    */
   abstract protected static function getClassOrModelName(): string;
+
+  /**
+   * @param string|null $class
+   *
+   * @return string
+   */
+  protected static function getEntityTypeFromClassName(?string $class = null): string {
+    $class ??= static::getEntityClassName();
+    preg_match('/\\\\?Drupal\\\\([a-z_]+?)\\\\/i', $class, $matches);
+    return end($matches);
+  }
 
   /**
    * @param string $module_name

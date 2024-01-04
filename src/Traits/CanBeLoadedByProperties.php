@@ -37,7 +37,7 @@ trait CanBeLoadedByProperties {
    */
   public static function loadByProperties(array $props, array $defaults = []): array {
     $set = [];
-    $entity_type_id = static::$entity_type_id ?? '';
+    $entity_type_id = static::$entity_type_id ?? static::getEntityTypeFromClassName() ?? '';
     $results = static::getEntitiesByProperties($entity_type_id, $props + $defaults);
 
     foreach($results as $key => $entity) {

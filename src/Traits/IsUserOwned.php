@@ -41,7 +41,7 @@ trait IsUserOwned {
     }
 
     // pull the user id, regardless if a string, int, or user object is passed
-    $owner_id = $owner instanceof UserInterface::class
+    $owner_id = $owner instanceof UserInterface
       ? $owner->id()
       : $owner;
 

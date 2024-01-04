@@ -2,24 +2,7 @@
 
 namespace Drupal\entity_decorator\Traits;
 
-trait HasDataFields {
-
-  /**
-   * Retrieves the ID reference of the entity
-   * @return int|string
-   */
-  public function getId(): int|string {
-    return $this->getEntity()->id();
-  }
-
-
-  /**
-   * Retrieves the UUID reference of the entity
-   * @return string
-   */
-  public function getUuid(): string {
-    return $this->getEntity()->uuid();
-  }
+trait HasFields {
 
   /**
    * Update an entity's data field value

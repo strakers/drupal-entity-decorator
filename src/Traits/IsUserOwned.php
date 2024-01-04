@@ -2,8 +2,7 @@
 
 namespace Drupal\entity_decorator\Traits;
 
-use Drupal\user\UserInterface;
-use \Drupal\Core\Session\AccountProxyInterface;
+use Drupal\Core\Session\AccountInterface;
 use function Drupal\entity_decorator\Support\Utility\has_trait;
 
 trait IsUserOwned {
@@ -11,10 +10,10 @@ trait IsUserOwned {
   /**
    * Retrieves the user account that "owns" this entity
    *
-   * @return \Drupal\user\UserInterface
+   * @return AccountInterface
    * @throws \Exception
    */
-  public function getOwner(): UserInterface {
+  public function getOwner(): AccountInterface {
     $class = static::getEntityClassName();
     if (!has_trait($class,'Drupal\user\EntityOwnerTrait')) {
       throw new \Exception("Class does not use the EntityOwnerTrait");
@@ -24,11 +23,11 @@ trait IsUserOwned {
 
   /**
    * Load entity accessors for all entities own by a given user
-   * @param string|int|\Drupal\user\UserInterface $owner
+   * @param string|int|AccountInterface $owner
    *
    * @return array
    */
-  public static function loadAllOwned(string|int|UserInterface $owner = 0): array {
+  public static function loadAllOwned(string|int|AccountInterface $owner = 0): array {
     $user_field_key = 'uid';
     $static_class = static::class;
 
@@ -46,7 +45,7 @@ trait IsUserOwned {
     }
 
     // pull the user id, regardless if a string, int, or user object is passed
-    $owner_id = $owner instanceof UserInterface || $owner instanceof AccountProxyInterface
+    $owner_id = $owner instanceof AccountInterface
       ? $owner->id()
       : $owner;
 

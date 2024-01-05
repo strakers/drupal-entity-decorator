@@ -27,10 +27,17 @@ class WebformSubmissionDecorator extends \Drupal\entity_decorator\Base\ContentEn
    */
   public function getFieldData(string $field_name, $fallback = null) {
     $entity = $this->getEntity();
-    $value = $this->getBaseFieldData($field_name);
+
+    // search for field in base entity fields
+    $value = null;
+    try { $value = $this->getBaseFieldData($field_name); }
+    catch(\Exception $e){}
+
+    // if not found, search through form elements
     if (is_null($value)) {
       $value = $entity->getElementData($field_name);
     }
+
     return $value ?? $fallback;
   }
 

@@ -40,9 +40,15 @@ trait HasFields {
     if (count($value_array) === 1) {
       if (isset($value_array[0])) {
         $keyed_array = $value_array[0];
-        return !empty($keyed_array) ? array_values($keyed_array)[0] : $fallback;
+
+        // if no value, return fallback
+        if (empty($keyed_array)) return $fallback;
+
+        // return value item if singular array or entire array if multiple
+        return (count($keyed_array) === 1) ? reset($keyed_array) : $keyed_array;
       }
       else {
+        // return list of values
         return $value_array;
       }
     }

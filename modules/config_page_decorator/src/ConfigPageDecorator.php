@@ -10,8 +10,8 @@ use DateTime;
 class ConfigPageDecorator extends ContentEntityDecoratorBase {
   use HasSingleInstance;
 
-  protected function __construct(protected readonly EntityBase $entity) {
-    parent::__construct($this->entity);
+  protected function __construct(EntityBase $entity) {
+    parent::__construct($entity);
   }
 
   /**

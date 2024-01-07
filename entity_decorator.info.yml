@@ -1,5 +1,5 @@
 name: Entity Decorator
-description: Provides decorator class for working with Entity data
+description: Provides decorator classes for working with Entity data
 type: module
 core_version_requirement: ^9.5 || ^10
 version: "1.0.0"

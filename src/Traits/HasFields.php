@@ -2,24 +2,7 @@
 
 namespace Drupal\entity_decorator\Traits;
 
-trait HasDataFields {
-
-  /**
-   * Retrieves the ID reference of the entity
-   * @return int|string
-   */
-  public function getId(): int|string {
-    return $this->getEntity()->id();
-  }
-
-
-  /**
-   * Retrieves the UUID reference of the entity
-   * @return string
-   */
-  public function getUuid(): string {
-    return $this->getEntity()->uuid();
-  }
+trait HasFields {
 
   /**
    * Update an entity's data field value
@@ -41,6 +24,13 @@ trait HasDataFields {
    */
   public function getFieldData(string $field_name, $fallback = null) {
     $field = $this->getEntity()->get($field_name);
+
+    // if field returns raw value
+    if (!is_object($field)) {
+      return $field ?: $fallback;
+    }
+
+    // otherwise extract value
     $value_array = $field->getValue();
 
     // if empty, use fallback value instead
@@ -50,9 +40,15 @@ trait HasDataFields {
     if (count($value_array) === 1) {
       if (isset($value_array[0])) {
         $keyed_array = $value_array[0];
-        return !empty($keyed_array) ? array_values($keyed_array)[0] : $fallback;
+
+        // if no value, return fallback
+        if (empty($keyed_array)) return $fallback;
+
+        // return value item if singular array or entire array if multiple
+        return (count($keyed_array) === 1) ? reset($keyed_array) : $keyed_array;
       }
       else {
+        // return list of values
         return $value_array;
       }
     }

@@ -19,10 +19,10 @@ trait CanBeLoadedByProperties {
         ->loadByProperties($props);
     }
     catch(\Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException $e) {
-      static::$logger->warning(sprintf('The entity type "%s" is an invalid plugin definition', $entity_type_id));
+      static::logger()->warning(sprintf('The entity type "%s" is an invalid plugin definition', $entity_type_id));
     }
     catch(\Drupal\Component\Plugin\Exception\PluginNotFoundException $e) {
-      static::$logger->warning(sprintf('The entity type "%s" not found', $entity_type_id));
+      static::logger()->warning(sprintf('The entity type "%s" not found', $entity_type_id));
     }
     return [];
   }
@@ -37,7 +37,7 @@ trait CanBeLoadedByProperties {
    */
   public static function loadByProperties(array $props, array $defaults = []): array {
     $set = [];
-    $entity_type_id = static::$entity_type_id ?? '';
+    $entity_type_id = static::$entity_type_id ?? static::getEntityTypeFromClassName() ?? '';
     $results = static::getEntitiesByProperties($entity_type_id, $props + $defaults);
 
     foreach($results as $key => $entity) {

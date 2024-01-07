@@ -15,9 +15,12 @@ composer require strakez/drupal-entity-decorator
 
 ## Purpose
 
-Provide a simple means to retrieve and display entity data, and solves some of the challenges experienced when working 
+Provides a simple means to retrieve and display entity data, and solves some of the challenges experienced when working 
 with entities. This implementations of the decorator pattern wraps the entity and provides customized methods for 
 interacting with the entity.
+
+Please note, this only exposes classes for use in other modules and does not provide any Drupal functionality on its own. 
+There will not be anything to display via the UI unless specifically implemented.
 
 ## Usage
 

@@ -15,12 +15,21 @@ class CastAs {
     return $value;
   }
 
-  public static function type(mixed $value, string $type ): mixed {
+  public static function type(mixed $value, string $type): mixed {
     if (method_exists(static::class, $type)) {
       $fn = static::class . "::$type";
       return $fn($value);
     }
     return $value;
+  }
+
+  public static function bind(string $type): callable|string {
+    if (method_exists(static::class, $type)) {
+      $fn = static::class . "::$type";
+      if (is_callable($fn))
+        return $fn;
+    }
+    return (fn($x) => $x);
   }
 
   public static function string(mixed $value): string {

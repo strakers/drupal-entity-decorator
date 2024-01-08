@@ -89,4 +89,6 @@ trait HasFields {
   public function listAllFieldNames(): array {
     return array_keys($this->getEntity()->toArray());
   }
+
+  abstract public function casts(): array;
 }

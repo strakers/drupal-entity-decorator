@@ -103,6 +103,38 @@ class CommentDecorator extends ContentEntityDecorator {
 }
 ```
 
+### Format Casting
+
+There are two ways to cast fields to a data format. The first is to create a defined or custom method and (optionally) type the return value.
+```php
+class CommentDecorator extends ContentEntityDecorator {
+  public function getField1(): string {
+    return $this->getFieldData('field_1');
+  }
+  public function getField2(): \DateTime {
+    return $this->getFieldData('field_2');
+  }
+  public function getField3() {
+    $data = $this->getFieldData('field_3');
+    return strtoupper($data);
+  }
+}
+```
+
+The second method is to override the `casts` method and add format-types or functions in the return array:
+```php
+class CommentDecorator extends ContentEntityDecorator {
+  public function casts() {
+    return parent::casts() + [
+       'field_1' => 'string',
+       'field_2' => 'dateTime',
+       'field_3' => fn($x) => strtoupper($x),
+    ];
+  }
+}
+```
+
+
 ### Extending Base Classes
 When extending classes, make sure to return the Fully-Qualified-Class-Name (FQCN) of the entity to decorate:
 ```php

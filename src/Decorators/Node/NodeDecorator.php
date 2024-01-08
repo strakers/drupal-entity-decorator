@@ -4,7 +4,6 @@ namespace Drupal\entity_decorator\Decorators\Node;
 
 use Drupal\entity_decorator\Traits\IsUserOwned;
 use Drupal\Core\Language\LanguageInterface;
-use Drupal\node\Entity\Node;
 use Drupal\Core\Url;
 use DateTime;
 use Drupal\entity_decorator\Traits\HasTimestamps;

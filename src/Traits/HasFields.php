@@ -104,6 +104,10 @@ trait HasFields {
   public function getFormat(string $field_name): callable|string {
     $casts = $this->casts();
     if (array_key_exists($field_name, $casts)) {
+      $format = $casts[$field_name];
+      if ($format instanceof \Closure) {
+        return $format;
+      }
       return CastAs::bind($casts[$field_name]);
     }
     return CastAs::existingType();

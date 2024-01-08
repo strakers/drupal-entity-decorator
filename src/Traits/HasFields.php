@@ -2,6 +2,8 @@
 
 namespace Drupal\entity_decorator\Traits;
 
+use Drupal\entity_decorator\Support\Conversion\CastAs;
+
 trait HasFields {
 
   /**
@@ -23,18 +25,21 @@ trait HasFields {
    * @return mixed
    */
   public function getFieldData(string $field_name, $fallback = null) {
+    $callback = $this->getFormat($field_name);
     $field = $this->getEntity()->get($field_name);
 
     // if field returns raw value
     if (!is_object($field)) {
-      return $field ?: $fallback;
+      return $callback($field ?: $fallback);
     }
 
     // otherwise extract value
     $value_array = $field->getValue();
 
     // if empty, use fallback value instead
-    if (empty($value_array)) return $fallback;
+    if (empty($value_array)) return $callback($fallback);
+
+    $data_value = null;
 
     // when one item in array
     if (count($value_array) === 1) {
@@ -42,14 +47,16 @@ trait HasFields {
         $keyed_array = $value_array[0];
 
         // if no value, return fallback
-        if (empty($keyed_array)) return $fallback;
+        if (empty($keyed_array))
+          $data_value = $fallback;
 
         // return value item if singular array or entire array if multiple
-        return (count($keyed_array) === 1) ? reset($keyed_array) : $keyed_array;
+        else
+          $data_value = ((count($keyed_array) === 1) ? reset($keyed_array) : $keyed_array);
       }
       else {
         // return list of values
-        return $value_array;
+        $data_value = ($value_array);
       }
     }
 
@@ -65,8 +72,10 @@ trait HasFields {
           $values[] = $value_item;
         }
       }
-      return $values ?: $fallback;
+      $data_value = ($values ?: $fallback);
     }
+
+    return $callback($data_value);
   }
 
   /**
@@ -91,4 +100,12 @@ trait HasFields {
   }
 
   abstract public function casts(): array;
+
+  public function getFormat(string $field_name): callable|string {
+    $casts = $this->casts();
+    if (array_key_exists($field_name, $casts)) {
+      return CastAs::bind($casts[$field_name]);
+    }
+    return CastAs::existingType();
+  }
 }

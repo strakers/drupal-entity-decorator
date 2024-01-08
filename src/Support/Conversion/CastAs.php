@@ -29,6 +29,10 @@ class CastAs {
       if (is_callable($fn))
         return $fn;
     }
+    return static::existingType();
+  }
+
+  public static function existingType(): callable {
     return (fn($x) => $x);
   }
 

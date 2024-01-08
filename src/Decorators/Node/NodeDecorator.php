@@ -97,4 +97,9 @@ class NodeDecorator extends \Drupal\entity_decorator\Base\ContentEntityDecorator
   public function isSticky(): bool {
     return ((int) $this->getFieldData('sticky')) > 0;
   }
+
+  public function casts(): array {
+    // TODO: Implement casts() method.
+    return [];
+  }
 }

@@ -28,4 +28,9 @@ class UserDecorator extends \Drupal\entity_decorator\Base\ContentEntityDecorator
     return $this->getEntity()->isActive();
   }
 
+  public function casts(): array {
+    // TODO: Implement casts() method.
+    return [];
+  }
+
 }

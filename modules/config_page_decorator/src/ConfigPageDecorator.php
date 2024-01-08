@@ -38,4 +38,9 @@ class ConfigPageDecorator extends ContentEntityDecoratorBase {
     return $changed ? new DateTime("@{$changed}") : null;
   }
 
+  public function casts(): array {
+    // TODO: Implement casts() method.
+    return [];
+  }
+
 }

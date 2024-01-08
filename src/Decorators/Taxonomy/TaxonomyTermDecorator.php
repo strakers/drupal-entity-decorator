@@ -189,4 +189,9 @@ class TaxonomyTermDecorator extends \Drupal\entity_decorator\Base\ContentEntityD
     return $tree_with_depth;
   }
 
+  public function casts(): array {
+    // TODO: Implement casts() method.
+    return [];
+  }
+
 }

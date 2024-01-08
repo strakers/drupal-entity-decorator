@@ -15,4 +15,9 @@ class MediaDecorator extends \Drupal\entity_decorator\Base\ContentEntityDecorato
     return 'Drupal\media\Entity\Media';
   }
 
+  public function casts(): array {
+    // TODO: Implement casts() method.
+    return [];
+  }
+
 }

@@ -27,7 +27,7 @@ trait HasFields {
 
     // if field returns raw value
     if (!is_object($field)) {
-      return ($field ?: $fallback);
+      return $field ?: $fallback;
     }
 
     // otherwise extract value
@@ -49,11 +49,11 @@ trait HasFields {
 
         // return value item if singular array or entire array if multiple
         else
-          $data_value = ((count($keyed_array) === 1) ? reset($keyed_array) : $keyed_array);
+          $data_value = (count($keyed_array) === 1) ? reset($keyed_array) : $keyed_array;
       }
       else {
         // return list of values
-        $data_value = ($value_array);
+        $data_value = $value_array;
       }
     }
 
@@ -72,7 +72,7 @@ trait HasFields {
       $data_value = ($values ?: $fallback);
     }
 
-    return ($data_value);
+    return $data_value;
   }
 
   /**

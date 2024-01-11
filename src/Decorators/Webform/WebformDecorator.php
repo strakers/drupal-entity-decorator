@@ -15,9 +15,4 @@ class WebformDecorator extends \Drupal\entity_decorator\Base\ContentEntityDecora
     return $this->getFieldData('title', '');
   }
 
-  public function casts(): array {
-    // TODO: Implement casts() method.
-    return [];
-  }
-
 }

@@ -5,7 +5,6 @@ namespace Drupal\entity_decorator\Decorators\Node;
 use Drupal\entity_decorator\Traits\IsUserOwned;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Url;
-use DateTime;
 use Drupal\entity_decorator\Traits\HasTimestamps;
 
 class NodeDecorator extends \Drupal\entity_decorator\Base\ContentEntityDecoratorBase {
@@ -95,10 +94,5 @@ class NodeDecorator extends \Drupal\entity_decorator\Base\ContentEntityDecorator
    */
   public function isSticky(): bool {
     return ((int) $this->getFieldData('sticky')) > 0;
-  }
-
-  public function casts(): array {
-    // TODO: Implement casts() method.
-    return [];
   }
 }

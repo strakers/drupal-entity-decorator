@@ -2,8 +2,6 @@
 
 namespace Drupal\entity_decorator\Traits;
 
-use Drupal\entity_decorator\Support\Conversion\CastAs;
-
 trait HasFields {
 
   /**

@@ -2,18 +2,10 @@
 
 namespace Drupal\entity_decorator\Base;
 
-use Drupal\Core\Entity\EntityBase;
-
 interface ContentEntityDecoratorInterface extends EntityDecoratorInterface {
 
   /**
-   * Exposes the entity for access to its methods and properties
-   * @return \Drupal\Core\Entity\EntityBase
-   */
-  public function getEntity(): EntityBase;
-
-  /**
-   * Update an entity's data field value
+   * Update an entity's data field value with storage format (if defined)
    * @param string $field_name
    * @param $value
    *
@@ -22,7 +14,7 @@ interface ContentEntityDecoratorInterface extends EntityDecoratorInterface {
   public function set(string $field_name, $value): void;
 
   /**
-   * Retrieve an entity's data field value
+   * Retrieve an entity's data field value with access format (if defined)
    * @param string $field_name
    * @param $fallback
    *
@@ -31,7 +23,7 @@ interface ContentEntityDecoratorInterface extends EntityDecoratorInterface {
   public function get(string $field_name, $fallback = null);
 
   /**
-   * Retrieve an array of all an entity's data fields and their values
+   * Retrieve an array of all an entity's data fields and their values with access formats (if defined)
    * @return array
    */
   public function getAll(): array;
@@ -41,5 +33,29 @@ interface ContentEntityDecoratorInterface extends EntityDecoratorInterface {
    * @return array
    */
   public function listAllFieldNames(): array;
+
+  /**
+   * Update an entity's data field value as-is
+   * @param string $field_name
+   * @param $value
+   *
+   * @return void
+   */
+  public function setRawData(string $field_name, $value): void;
+
+  /**
+   * Retrieve an entity's data field value as-is
+   * @param string $field_name
+   * @param $fallback
+   *
+   * @return mixed
+   */
+  public function getRawData(string $field_name, $fallback);
+
+  /**
+   * Retrieve an array of all an entity's data fields and their values as-is
+   * @return array
+   */
+  public function getAllRawData(): array;
 
 }

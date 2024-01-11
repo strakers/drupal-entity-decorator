@@ -18,8 +18,9 @@ class WebformSubmissionDecorator extends \Drupal\entity_decorator\Base\ContentEn
   /**
    * @inheritDoc
    */
-  public function setFieldData(string $field_name, $value): void {
-    $this->getEntity()->setElementData($field_name, $value);
+  public function setRawData(string $field_name, $value): void {
+    // if (array_key_exists($field_name, $this->listAllWebformFieldNames()))
+      $this->getEntity()->setElementData($field_name, $value);
   }
 
   /**
@@ -49,7 +50,7 @@ class WebformSubmissionDecorator extends \Drupal\entity_decorator\Base\ContentEn
    * @return array|mixed|null
    */
   public function getBaseFieldData(string $field_name, $fallback = NULL) {
-    return parent::getFieldData($field_name, $fallback);
+    return parent::getRawData($field_name, $fallback);
   }
 
   /**
@@ -64,8 +65,8 @@ class WebformSubmissionDecorator extends \Drupal\entity_decorator\Base\ContentEn
    * Retrieve a list of all field values related to the webform submission
    * @return array
    */
-  public function getAllFieldData(): array {
-    return $this->getAllWebformFieldData() + parent::getAllFieldData();
+  public function getAllRawData(): array {
+    return $this->getAllWebformFieldData() + parent::getAllRawData();
   }
 
   /**
@@ -75,17 +76,28 @@ class WebformSubmissionDecorator extends \Drupal\entity_decorator\Base\ContentEn
   public function listAllFieldNames(): array {
     return [
       ...parent::listAllFieldNames(),
-      ...array_keys($this->getEntity()->getRawData()),
+      ...$this->listAllWebformFieldNames(),
     ];
+  }
+
+  /**
+   * Retrieve a list of all webform-specfic field data keys
+   * @return array
+   */
+  protected function listAllWebformFieldNames(): array {
+    return array_keys($this->getEntity()->getData());
   }
 
   /**
    * Retrieve the current workflow status for a submission
    * Todo: make workflow field modular (in case it is named differently)
+   *
+   * @param string $workflow_field_name
+   *
    * @return string
    */
-  public function getStatus(): string {
-    $workflow = $this->getFieldData('workflow');
+  public function getWorkflowStatus(string $workflow_field_name = 'workflow'): string {
+    $workflow = $this->getFieldData($workflow_field_name);
     if (isset($workflow['workflow_state'])) {
       return $workflow['workflow_state'];
     }
@@ -128,9 +140,14 @@ class WebformSubmissionDecorator extends \Drupal\entity_decorator\Base\ContentEn
     return $this->getFieldData('id', '');
   }
 
-  public function casts(): array {
+  public function getAccessFormatters(): array {
     // TODO: Implement casts() method.
-    return [];
+    return [
+      'completed' => 'boolean',
+      'in_draft' => 'boolean',
+      'locked' => 'boolean',
+      'sticky' => 'boolean',
+    ];
   }
 
 }

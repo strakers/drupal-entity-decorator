@@ -13,7 +13,7 @@ class UserDecorator extends \Drupal\entity_decorator\Base\ContentEntityDecorator
   }
 
   public function getUsername(): string {
-    return $this->getFieldData('name');
+    return $this->getRawData('name');
   }
 
   public function hasRole(int|string $rid): bool {
@@ -26,11 +26,6 @@ class UserDecorator extends \Drupal\entity_decorator\Base\ContentEntityDecorator
 
   public function isActive():bool {
     return $this->getEntity()->isActive();
-  }
-
-  public function casts(): array {
-    // TODO: Implement casts() method.
-    return [];
   }
 
 }

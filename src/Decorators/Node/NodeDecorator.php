@@ -27,16 +27,16 @@ class NodeDecorator extends \Drupal\entity_decorator\Base\ContentEntityDecorator
    * Retrieves the label/title of the given node
    * @return string
    */
-  public function getLabel(): string {
-    return $this->getFieldData('title');
+  public function label(): string {
+    return $this->getRawData('title');
   }
 
   /**
    * Retrieves the bundle type of the given node
    * @return string
    */
-  public function getType(): string {
-    return $this->getBundle();
+  public function type(): string {
+    return $this->bundle();
   }
 
   /**
@@ -77,7 +77,7 @@ class NodeDecorator extends \Drupal\entity_decorator\Base\ContentEntityDecorator
    * @return bool
    */
   public function isEnabled(): bool {
-    return ((int) $this->getFieldData('status')) > 0;
+    return ((int) $this->getRawData('status')) > 0;
   }
 
   /**
@@ -85,7 +85,7 @@ class NodeDecorator extends \Drupal\entity_decorator\Base\ContentEntityDecorator
    * @return bool
    */
   public function isPromoted(): bool {
-    return ((int) $this->getFieldData('promote')) > 0;
+    return ((int) $this->getRawData('promote')) > 0;
   }
 
   /**
@@ -93,6 +93,15 @@ class NodeDecorator extends \Drupal\entity_decorator\Base\ContentEntityDecorator
    * @return bool
    */
   public function isSticky(): bool {
-    return ((int) $this->getFieldData('sticky')) > 0;
+    return ((int) $this->getRawData('sticky')) > 0;
   }
+
+  public function getAccessFormatters(): array {
+    return [
+      'sticky' => 'boolean',
+      'promote' => 'boolean',
+      'status' => 'boolean',
+    ];
+  }
+
 }

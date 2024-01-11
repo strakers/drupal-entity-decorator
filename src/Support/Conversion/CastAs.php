@@ -74,7 +74,11 @@ class CastAs {
         ? $value
         : new DateTime($value, $tz));
     }
-    catch (\Exception $e) {}
+    catch (\Exception $e) {
+      // retry with value modification hack
+      try { return new DateTime("@{$value}", $tz); }
+      catch (\Exception $e2) {}
+    }
     return null;
   }
 

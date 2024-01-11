@@ -42,4 +42,9 @@ interface ContentEntityDecoratorInterface extends EntityDecoratorInterface {
    */
   public function listAllFieldNames(): array;
 
+  public function casts(): array;
+  public function getFormat(string $field_name): callable|string;
+  public function get(string $field_name, $fallback);
+  public function set(string $field_name, $value): void;
+
 }

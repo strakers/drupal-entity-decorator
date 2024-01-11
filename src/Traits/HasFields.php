@@ -3,6 +3,7 @@
 namespace Drupal\entity_decorator\Traits;
 
 use Drupal\entity_decorator\Support\Conversion\CastAs;
+use Drupal\entity_decorator\Support\DataType\NotFoundResult;
 
 trait HasFields {
 
@@ -25,19 +26,18 @@ trait HasFields {
    * @return mixed
    */
   public function getFieldData(string $field_name, $fallback = null) {
-    $callback = $this->getFormat($field_name);
     $field = $this->getEntity()->get($field_name);
 
     // if field returns raw value
     if (!is_object($field)) {
-      return $callback($field ?: $fallback);
+      return ($field ?: $fallback);
     }
 
     // otherwise extract value
     $value_array = $field->getValue();
 
     // if empty, use fallback value instead
-    if (empty($value_array)) return $callback($fallback);
+    if (empty($value_array)) return ($fallback);
 
     $data_value = null;
 
@@ -75,7 +75,7 @@ trait HasFields {
       $data_value = ($values ?: $fallback);
     }
 
-    return $callback($data_value);
+    return ($data_value);
   }
 
   /**
@@ -99,8 +99,58 @@ trait HasFields {
     return array_keys($this->getEntity()->toArray());
   }
 
+  /**
+   * Shorthand to set/update a field's data. Later plans to convert storage format
+   * @param string $field_name
+   * @param $value
+   *
+   * @return void
+   */
+  public function set(string $field_name, $value): void {
+    $this->setFieldData($field_name, $field_name);
+  }
+
+  /**
+   * Retrieve an entity's data field value as formatted value
+   * @param string $field_name
+   * @param $fallback
+   *
+   * @return mixed|null
+   */
+  public function get(string $field_name, $fallback = null) {
+    $value = $this->getFieldData($field_name, /* null */);
+    if (is_null($value)) {
+      return $fallback;
+    }
+    $callback = $this->getFormat($field_name);
+    return $callback($value);
+  }
+
+  /**
+   * Retrieve an array of all an entity's data fields and their formatted values
+   * @return array
+   */
+  public function getAll(): array {
+    $data = [];
+    $values = $this->getEntity()->toArray();
+    foreach($values as $key => $value) {
+      $data[$key] = $this->get($key);
+    }
+    return $data;
+  }
+
+  /**
+   * Define array of custom formats for field names
+   * @return array
+   */
   abstract public function casts(): array;
 
+  /**
+   * Retrieve the formatting operation for the given field name (if defined)
+   * @param string $field_name
+   *
+   * @return callable|string
+   */
   public function getFormat(string $field_name): callable|string {
     $casts = $this->casts();
     if (array_key_exists($field_name, $casts)) {

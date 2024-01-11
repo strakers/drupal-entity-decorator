@@ -132,9 +132,10 @@ trait HasFields {
    */
   public function getAll(): array {
     $data = [];
-    $values = $this->getEntity()->toArray();
+    $values = $this->getAllFieldData();
     foreach($values as $key => $value) {
-      $data[$key] = $this->get($key);
+      $callable = $this->getFormat($key);
+      $data[$key] = $callable($value);
     }
     return $data;
   }

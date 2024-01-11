@@ -3,7 +3,6 @@
 namespace Drupal\entity_decorator\Traits;
 
 use Drupal\entity_decorator\Support\Conversion\CastAs;
-use Drupal\entity_decorator\Support\DataType\NotFoundResult;
 
 trait HasFields {
 

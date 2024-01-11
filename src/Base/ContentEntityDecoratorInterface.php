@@ -19,7 +19,7 @@ interface ContentEntityDecoratorInterface extends EntityDecoratorInterface {
    *
    * @return void
    */
-  public function setFieldData(string $field_name, $value): void;
+  public function set(string $field_name, $value): void;
 
   /**
    * Retrieve an entity's data field value
@@ -28,23 +28,18 @@ interface ContentEntityDecoratorInterface extends EntityDecoratorInterface {
    *
    * @return ?
    */
-  public function getFieldData(string $field_name, $fallback = null);
+  public function get(string $field_name, $fallback = null);
 
   /**
    * Retrieve an array of all an entity's data fields and their values
    * @return array
    */
-  public function getAllFieldData(): array;
+  public function getAll(): array;
 
   /**
    * List an array of all an entity's data field keys
    * @return array
    */
   public function listAllFieldNames(): array;
-
-  public function casts(): array;
-  public function getFormat(string $field_name): callable|string;
-  public function get(string $field_name, $fallback);
-  public function set(string $field_name, $value): void;
 
 }

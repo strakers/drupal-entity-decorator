@@ -31,28 +31,28 @@ abstract class EntityDecoratorBase implements EntityDecoratorInterface {
   /**
    * @inheritDoc
    */
-  public function getId(): int|string {
+  public function id(): int|string {
     return $this->getEntity()->id();
   }
 
   /**
    * @inheritDoc
    */
-  public function getUuid(): string {
+  public function uuid(): string {
     return $this->getEntity()->uuid();
   }
 
   /**
    * @inheritDoc
    */
-  public function getBundle(): string {
+  public function bundle(): string {
     return $this->getEntity()->bundle();
   }
 
   /**
    * @inheritDoc
    */
-  public function getLabel(): string {
+  public function label(): string {
     return $this->getEntity()->label();
   }
 

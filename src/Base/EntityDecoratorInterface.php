@@ -9,25 +9,25 @@ interface EntityDecoratorInterface {
    * Retrieves the ID reference of the entity
    * @return int|string
    */
-  public function getId(): int|string;
+  public function id(): int|string;
 
   /**
    * Retrieves the UUID reference of the entity
    * @return string
    */
-  public function getUuid(): string;
+  public function uuid(): string;
 
   /**
    * Retrieves the bundle/entity type of the entity
    * @return int|string
    */
-  public function getBundle(): int|string;
+  public function bundle(): int|string;
 
   /**
    * Retrieves the label/title of the entity
    * @return string
    */
-  public function getLabel(): string;
+  public function label(): string;
 
   /**
    * Exposes the entity for access to its methods and properties

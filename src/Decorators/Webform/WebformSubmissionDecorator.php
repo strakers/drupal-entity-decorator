@@ -124,6 +124,10 @@ class WebformSubmissionDecorator extends \Drupal\entity_decorator\Base\ContentEn
     return (bool) $this->getBaseFieldData('sticky');
   }
 
+  public function key(): string {
+    return $this->getFieldData('id', '');
+  }
+
   public function casts(): array {
     // TODO: Implement casts() method.
     return [];

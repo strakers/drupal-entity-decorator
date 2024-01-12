@@ -9,11 +9,13 @@ type return values.
 composer require strakez/drupal-entity-decorator
 ```
 
+---
 ## Requirements
 
 - PHP 8.1+
 - Drupal 10+
 
+---
 ## Purpose
 
 Provides a simple means to retrieve and display entity data, and solves some of the challenges experienced when working 
@@ -190,7 +192,7 @@ $demo->get('field_3')->format('F jS, Y'); // "January 4th, 2024" (string)
 
 #### Alternative Accessor Formatting
 
-For those that prefer to tightly type the return values, it may be preferable to define custom methods over casting.
+For those that prefer to strongly type the return values, it may be preferable to define custom methods over casting.
 ```php
 class DemoEntityDecorator extends ContentEntityDecoratorBase {
   public function getField1(): string {
@@ -203,6 +205,40 @@ class DemoEntityDecorator extends ContentEntityDecoratorBase {
   public function getField3(): \DateTime {
     $value = $this->getRawData('field_3')
     return new DateTime($value);
+  }
+}
+```
+
+However, please note that implicit formatting can also be strongly typed by using private/protected methods:
+```php
+class DemoEntityDecorator extends ContentEntityDecoratorBase {
+  public function getAccessorFormats() {
+    // includes accessor formats defined in a parent class
+    return parent::getAccessorFormats() + [
+       'field_3' => $this->formatToUpperCase(),
+       'field_4' => $this->formatToLowerCase(),
+       'field_5' => $this->formatCommasToArray(),
+    ];
+  }
+  
+  // converts text to uppercase
+  protected function formatToUpperCase(): callable {
+    return function(string $x): string {
+      return strtoupper($x);
+    }
+  }
+  
+  // converts text to lowercase
+  protected function formatToLowerCase(): callable {
+    return function(string $x): string {
+      return strtoupper($x);
+    }
+  }
+  
+  // converts comma separated string to array
+  // can even use shorthand method
+  protected function formatCommasToArray(): callable {
+    return fn(string $x): array => explode(',', $x);
   }
 }
 ```
@@ -268,3 +304,8 @@ class DemoEntityDecorator extends ContentEntityDecoratorBase {
   }
 }
 ```
+&nbsp;
+
+## Final Words
+Please have fun using this API, and feel free to submit your comments and/or improvements if you find any. Thanks!
+

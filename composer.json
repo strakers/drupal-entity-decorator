@@ -3,7 +3,8 @@
     "description": "Implements a decorator pattern to access and customize typed access to an entity's properties and methods",
     "type": "drupal-module",
     "require": {
-        "php": ">=8.1"
+        "php": ">=8.1",
+        "ramsey/collection": "dev-main"
     },
     "require-dev": {
         "drupal/core": "^9.5 || ^10",

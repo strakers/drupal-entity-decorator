@@ -4,6 +4,7 @@ namespace Drupal\entity_decorator\Decorators\Taxonomy;
 
 use Drupal\entity_decorator\Exceptions\ModuleClassNotEnabledException;
 use Drupal\entity_decorator\Exceptions\BadMethodCallException;
+use Ramsey\Collection\Collection;
 
 class TaxonomyTermDecorator extends \Drupal\entity_decorator\Base\ContentEntityDecoratorBase {
 
@@ -19,7 +20,7 @@ class TaxonomyTermDecorator extends \Drupal\entity_decorator\Base\ContentEntityD
   /**
    * @inheritDoc
    */
-  public static function loadByProperties(array $props, array $defaults = ['status' => 1]): array {
+  public static function loadByProperties(array $props, array $defaults = ['status' => 1]): Collection {
     return parent::loadByProperties($props, $defaults);
   }
 

@@ -7,7 +7,6 @@ use Drupal\entity_decorator\Support\Conversion\CastAs;
 trait HasFormattedFields {
   use HasFields {
     set as public setRawData;
-    get as public getRawData;
     getAll as public getAllRawData;
   }
 

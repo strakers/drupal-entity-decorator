@@ -89,4 +89,16 @@ class CastAs {
     }
     return null;
   }
+
+  public static function json(mixed $value): string {
+    if (is_scalar($value)) $value = static::object($value);
+    elseif (method_exists($value, 'toJson')) {
+      return $value->toJson();
+    }
+    elseif (method_exists($value, 'toArray')) {
+      $value = $value->toArray();
+    }
+
+    return json_encode($value);
+  }
 }

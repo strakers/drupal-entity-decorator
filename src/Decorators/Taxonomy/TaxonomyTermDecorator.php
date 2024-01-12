@@ -35,7 +35,7 @@ class TaxonomyTermDecorator extends \Drupal\entity_decorator\Base\ContentEntityD
    * @return bool
    */
   public function hasParent(): bool {
-    return (int)$this->getFieldData('parent') !== 0;
+    return (int)$this->getRawData('parent') !== 0;
   }
 
   /**
@@ -43,7 +43,7 @@ class TaxonomyTermDecorator extends \Drupal\entity_decorator\Base\ContentEntityD
    * @return bool
    */
   public function isEnabled(): bool {
-    return ((int) $this->getFieldData('status')) > 0;
+    return ((int) $this->getRawData('status')) > 0;
   }
 
   /**
@@ -55,7 +55,7 @@ class TaxonomyTermDecorator extends \Drupal\entity_decorator\Base\ContentEntityD
    * @throws BadMethodCallException
    */
   public function getParent(): ?static {
-    if (($parent_id = (int)$this->getFieldData('parent')) && $parent_id > 0) {
+    if (($parent_id = (int)$this->getRawData('parent')) && $parent_id > 0) {
       return static::load($parent_id);
     }
     return null;
@@ -72,7 +72,7 @@ class TaxonomyTermDecorator extends \Drupal\entity_decorator\Base\ContentEntityD
   public function getChildren(bool $includeInactive = false): array {
     $statusOption = $includeInactive ? [] : [ 'status' => 1 ];
     return static::loadByProperties([
-        'parent' => $this->getId(),
+        'parent' => $this->id(),
       ] + $statusOption);
   }
 
@@ -84,7 +84,7 @@ class TaxonomyTermDecorator extends \Drupal\entity_decorator\Base\ContentEntityD
    * @return array
    */
   public function getChildLabels(bool $includeInactive = false): array {
-    return array_map(fn(self $term) => $term->getLabel(), $this->getChildren($includeInactive));
+    return array_map(fn(self $term) => $term->label(), $this->getChildren($includeInactive));
   }
 
   /**
@@ -93,7 +93,7 @@ class TaxonomyTermDecorator extends \Drupal\entity_decorator\Base\ContentEntityD
    * @return string
    */
   public function getDescription(): string {
-    return ($data = $this->getFieldData('description'))
+    return ($data = $this->getRawData('description'))
       ? $data['value'] ?? ''
       : '';
   }
@@ -109,7 +109,7 @@ class TaxonomyTermDecorator extends \Drupal\entity_decorator\Base\ContentEntityD
    * @throws BadMethodCallException
    */
   public static function getLabelById(int|string $id): string {
-    return ($term = static::load($id)) ? $term->getLabel() : '';
+    return ($term = static::load($id)) ? $term->label() : '';
   }
 
   /**
@@ -123,7 +123,7 @@ class TaxonomyTermDecorator extends \Drupal\entity_decorator\Base\ContentEntityD
   public static function getIdByLabel(string $label): int {
     return ($term = static::loadOneByProperties([
       'name' => $label,
-    ])) ? $term->getId() : 0;
+    ])) ? $term->id() : 0;
   }
 
   /**

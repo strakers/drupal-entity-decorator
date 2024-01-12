@@ -10,6 +10,11 @@ use DateTime;
 class ConfigPageDecorator extends ContentEntityDecoratorBase {
   use HasSingleInstance;
 
+  /**
+   * Prevents public access to constructor method
+   *
+   * @param \Drupal\Core\Entity\EntityBase $entity
+   */
   protected function __construct(EntityBase $entity) {
     parent::__construct($entity);
   }
@@ -25,7 +30,7 @@ class ConfigPageDecorator extends ContentEntityDecoratorBase {
    * Retrives the label/title of the config page
    * @return string
    */
-  public function getLabel(): string {
+  public function label(): string {
     return $this->getFieldData('label');
   }
 

@@ -13,7 +13,7 @@ class UserDecorator extends \Drupal\entity_decorator\Base\ContentEntityDecorator
   }
 
   public function getUsername(): string {
-    return $this->getFieldData('name');
+    return $this->getRawData('name');
   }
 
   public function hasRole(int|string $rid): bool {

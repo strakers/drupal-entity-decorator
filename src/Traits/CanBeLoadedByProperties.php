@@ -2,7 +2,7 @@
 
 namespace Drupal\entity_decorator\Traits;
 
-use Ramsey\Collection\Collection;
+use loophp\collection\Collection;
 
 trait CanBeLoadedByProperties {
 
@@ -35,7 +35,7 @@ trait CanBeLoadedByProperties {
    * @param array $props
    * @param array $defaults
    *
-   * @return \Ramsey\Collection
+   * @return Collection
    */
   public static function loadByProperties(array $props, array $defaults = []): Collection {
     $set = [];
@@ -48,8 +48,7 @@ trait CanBeLoadedByProperties {
       }
     }
 
-    return new Collection(
-      static::getEntityTypeFromClassName(),
+    return new Collection::fromIterable(
       $set,
     );
   }

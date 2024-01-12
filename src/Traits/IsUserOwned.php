@@ -37,7 +37,7 @@ trait IsUserOwned {
     }
 
     // first check if load by properties static method exists
-    if (! method_exists($static_class, 'loadByProperties')) return Collection::fromIterable([]);
+    if (! method_exists($static_class, 'loadByProperties')) return Collection::empty();
 
     // then check if other field is defined to reference the owner/user
     $class_vars = get_class_vars($static_class);

@@ -48,9 +48,7 @@ trait CanBeLoadedByProperties {
       }
     }
 
-    return new Collection::fromIterable(
-      $set,
-    );
+    return Collection::fromIterable($set);
   }
 
   /**

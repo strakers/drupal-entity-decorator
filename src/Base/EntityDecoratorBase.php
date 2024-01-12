@@ -15,9 +15,11 @@ abstract class EntityDecoratorBase implements EntityDecoratorInterface {
   use CanBeLoadedByProperties;
 
   protected static LoggerInterface $logger;
+  protected readonly int|string $id;
 
   public function __construct(protected readonly EntityBase $entity) {
     static::$logger = Drupal::logger('entity_decorator');
+    $this->id = $this->entity->id();
   }
 
   /**

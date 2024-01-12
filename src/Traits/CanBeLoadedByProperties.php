@@ -3,6 +3,7 @@
 namespace Drupal\entity_decorator\Traits;
 
 use loophp\collection\Collection;
+use loophp\collection\Contract\Collection as CollectionInterface;
 
 trait CanBeLoadedByProperties {
 
@@ -35,16 +36,16 @@ trait CanBeLoadedByProperties {
    * @param array $props
    * @param array $defaults
    *
-   * @return Collection
+   * @return CollectionInterface
    */
-  public static function loadByProperties(array $props, array $defaults = []): Collection {
+  public static function loadByProperties(array $props, array $defaults = []): CollectionInterface {
     $set = [];
     $entity_type_id = static::$entity_type_id ?? static::getEntityTypeFromClassName() ?? '';
     $results = static::getEntitiesByProperties($entity_type_id, $props + $defaults);
 
     foreach($results as $key => $entity) {
       if ($entity) {
-        $set[$key] = new static($entity);
+        $set[] = new static($entity); // removed key for numerical array
       }
     }
 

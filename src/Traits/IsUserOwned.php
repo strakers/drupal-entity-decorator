@@ -4,6 +4,7 @@ namespace Drupal\entity_decorator\Traits;
 
 use Drupal\Core\Session\AccountInterface;
 use loophp\collection\Collection;
+use loophp\collection\Contract\Collection as CollectionInterface;
 use function Drupal\entity_decorator\Support\Utility\has_trait;
 
 trait IsUserOwned {
@@ -26,9 +27,9 @@ trait IsUserOwned {
    * Load entity accessors for all entities own by a given user
    * @param string|int|AccountInterface $owner
    *
-   * @return Collection
+   * @return CollectionInterface
    */
-  public static function loadAllOwned(string|int|AccountInterface $owner = 0): Collection {
+  public static function loadAllOwned(string|int|AccountInterface $owner = 0): CollectionInterface {
     $user_field_key = 'uid';
     $static_class = static::class;
 

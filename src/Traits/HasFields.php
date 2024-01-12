@@ -23,6 +23,27 @@ trait HasFields {
    * @return mixed
    */
   public function get(string $field_name, $fallback = null) {
+    return $this->getRawData($field_name, $fallback);
+  }
+
+  /**
+   * List an array of all an entity's data field keys
+   * @return array
+   */
+  public function listAllFieldNames(): array {
+    return array_keys($this->getEntity()->toArray());
+  }
+
+  /**
+   * Retrieve an entity's data field raw value. Separated to its own function
+   * to avoid collisions with overrides in child classes/traits.
+   *
+   * @param string $field_name
+   * @param $fallback
+   *
+   * @return mixed
+   */
+  public function getRawData(string $field_name, $fallback = null) {
     $field = $this->getEntity()->get($field_name);
 
     // if field returns raw value
@@ -73,26 +94,5 @@ trait HasFields {
     }
 
     return $data_value;
-  }
-
-  /**
-   * Retrieve an array of all an entity's data fields and their values
-   * @return array
-   */
-  public function getAll(): array {
-    $data = [];
-    $values = $this->getEntity()->toArray();
-    foreach($values as $key => $value) {
-      $data[$key] = $this->getFieldData($key);
-    }
-    return $data;
-  }
-
-  /**
-   * List an array of all an entity's data field keys
-   * @return array
-   */
-  public function listAllFieldNames(): array {
-    return array_keys($this->getEntity()->toArray());
   }
 }

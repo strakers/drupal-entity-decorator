@@ -2,8 +2,7 @@
 
 namespace Drupal\entity_decorator\Traits;
 
-use loophp\collection\Collection;
-use loophp\collection\Contract\Collection as CollectionInterface;
+use Drupal\entity_decorator\Support\DataType\Collection;
 
 trait CanBeLoadedByProperties {
 
@@ -36,20 +35,20 @@ trait CanBeLoadedByProperties {
    * @param array $props
    * @param array $defaults
    *
-   * @return CollectionInterface
+   * @return Collection
    */
-  public static function loadByProperties(array $props, array $defaults = []): CollectionInterface {
+  public static function loadByProperties(array $props, array $defaults = []): Collection {
     $set = [];
     $entity_type_id = static::$entity_type_id ?? static::getEntityTypeFromClassName() ?? '';
     $results = static::getEntitiesByProperties($entity_type_id, $props + $defaults);
 
     foreach($results as $key => $entity) {
       if ($entity) {
-        $set[] = new static($entity); // removed key for numerical array
+        $set[$key] = new static($entity);
       }
     }
 
-    return Collection::fromIterable($set);
+    return new Collection($set);
   }
 
   /**

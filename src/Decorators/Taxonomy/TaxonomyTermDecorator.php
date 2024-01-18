@@ -4,7 +4,7 @@ namespace Drupal\entity_decorator\Decorators\Taxonomy;
 
 use Drupal\entity_decorator\Exceptions\ModuleClassNotEnabledException;
 use Drupal\entity_decorator\Exceptions\BadMethodCallException;
-use loophp\collection\Contract\Collection as CollectionInterface;
+use Drupal\entity_decorator\Support\DataType\Collection;
 
 class TaxonomyTermDecorator extends \Drupal\entity_decorator\Base\ContentEntityDecoratorBase {
 
@@ -13,14 +13,14 @@ class TaxonomyTermDecorator extends \Drupal\entity_decorator\Base\ContentEntityD
   /**
    * @inheritDoc
    */
-  protected static function getClassOrModelName(): string {
+  public static function getClassOrModelName(): string {
     return 'Drupal\taxonomy\Entity\Term';
   }
 
   /**
    * @inheritDoc
    */
-  public static function loadByProperties(array $props, array $defaults = ['status' => 1]): CollectionInterface {
+  public static function loadByProperties(array $props, array $defaults = ['status' => 1]): Collection {
     return parent::loadByProperties($props, $defaults);
   }
 
@@ -66,9 +66,9 @@ class TaxonomyTermDecorator extends \Drupal\entity_decorator\Base\ContentEntityD
    *
    * @param bool $includeInactive
    *
-   * @return CollectionInterface
+   * @return Collection
    */
-  public function getChildren(bool $includeInactive = false): CollectionInterface {
+  public function getChildren(bool $includeInactive = false): Collection {
     $statusOption = $includeInactive ? [] : [ 'status' => 1 ];
     return static::loadByProperties([
         'parent' => $this->id(),

@@ -3,7 +3,7 @@
 namespace Drupal\entity_decorator\Base;
 
 use Drupal\Core\Entity\EntityBase;
-use loophp\collection\Contract\Collection as CollectionInterface;
+use Drupal\entity_decorator\Support\DataType\Collection;
 
 interface EntityDecoratorInterface {
   /**
@@ -51,9 +51,9 @@ interface EntityDecoratorInterface {
    * @param array $props
    * @param array $defaults
    *
-   * @return array
+   * @return Collection
    */
-  public static function loadByProperties(array $props, array $defaults = []): CollectionInterface;
+  public static function loadByProperties(array $props, array $defaults = []): Collection;
 
   /**
    * Load one (or less) accessor for an entity that matches the given properties

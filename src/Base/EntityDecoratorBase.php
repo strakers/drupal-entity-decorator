@@ -132,7 +132,7 @@ abstract class EntityDecoratorBase implements EntityDecoratorInterface {
    * Returns either the model name or the fully qualified class name of the entity
    * @return string
    */
-  abstract protected static function getClassOrModelName(): string;
+  abstract public static function getClassOrModelName(): string;
 
   /**
    * Retrieve entity type name from defined class path of the entity

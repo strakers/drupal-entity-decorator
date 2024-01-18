@@ -7,7 +7,7 @@ use Drupal\entity_decorator\Traits\IsUserOwned;
 class WebformDecorator extends \Drupal\entity_decorator\Base\ContentEntityDecoratorBase {
   use IsUserOwned;
 
-  protected static function getClassOrModelName(): string {
+  public static function getClassOrModelName(): string {
     return 'Drupal\webform\Entity\Webform';
   }
 

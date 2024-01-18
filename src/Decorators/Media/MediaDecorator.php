@@ -11,7 +11,7 @@ class MediaDecorator extends \Drupal\entity_decorator\Base\ContentEntityDecorato
   /**
    * @inheritDoc
    */
-  protected static function getClassOrModelName(): string {
+  public static function getClassOrModelName(): string {
     return 'Drupal\media\Entity\Media';
   }
 

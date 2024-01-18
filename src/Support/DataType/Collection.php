@@ -2,18 +2,36 @@
 
 namespace Drupal\entity_decorator\Support\DataType;
 
-use Drupal\entity_decorator\Base\EntityDecoratorBase;
+use Drupal\entity_decorator\Base\EntityDecoratorInterface;
+use function Drupal\entity_decorator\Support\Utility\has_interface;
 
 class Collection implements \ArrayAccess, \Countable, \Iterator {
   public readonly array $items;
   protected readonly array $key_references;
   protected readonly bool $has_sequential_keys;
   protected int $position = 0;
+  protected string $collection_type;
 
   public function __construct(array $items, bool $preserve_keys = true) {
+    // determine collection metadata
+    $first_item = reset($items);
+    $this->has_sequential_keys = array_is_list($items);
+    $this->collection_type = is_object($first_item) ? $first_item::class : gettype($first_item);
+
+    // todo: to be implemented at a later time
+    /*// ensure array is uniform by stripping non-uniform items
+    if (is_object($first_item)) {
+      $this->collection_type = $first_item::class;
+      $items = array_filter($items, fn($item) => $item::class === $this->collection_type);
+    }
+    else {
+      $this->collection_type = gettype($first_item);
+      $items = array_filter($items, fn($item) => gettype($item) === $this->collection_type);
+    }*/
+
+    // load items and indexes
     $this->items = $preserve_keys ? $items : array_values($items);
     $this->key_references = array_keys($items);
-    $this->has_sequential_keys = array_is_list($this->items);
   }
 
   /**
@@ -114,11 +132,39 @@ class Collection implements \ArrayAccess, \Countable, \Iterator {
     return new static($array);
   }
 
+  public function pluck(string|callable $pluckable): static {
+    // execute pluckable callback function to retrieve value from collection
+    if (is_callable($pluckable)) {
+      return $this->map($pluckable);
+    }
+
+    // throw warning and return existing collection
+    if ($this->isScalarCollection()) {
+      trigger_error('Invalid use of `pluck` on a collection of scalar values.', E_USER_WARNING);
+      return $this;
+    }
+
+    // at this point, $pluckable is a string
+    // determine appropriate callback function to retrieve value from collection
+    $key = $pluckable;
+    if ($this->isEntityCollection()) {
+      $callback = fn(EntityDecoratorInterface $item) => $item->get($key);
+    }
+    elseif ($this->getType() === 'array') {
+      $callback = fn(array $item) => (array_key_exists($key, $item) ? $item[$key] : null);
+    }
+    else {
+      $callback = fn(object $item) => (property_exists($item, $key) ? $item->{$key} : NULL);
+    }
+
+    return $this->map($callback);
+  }
+
   /**
    * Returns the item at the specified key.
    * @param string|int $index
    *
-   * @return \Drupal\entity_decorator\Base\EntityDecoratorBase|null
+   * @return mixed
    */
   public function index(string|int $index): mixed {
     // if looking for a numerical index on an associative array,
@@ -130,6 +176,21 @@ class Collection implements \ArrayAccess, \Countable, \Iterator {
       }
     }
     return $this->offsetGet($index);
+  }
+
+  /**
+   * Lookups the key for the given numerical index
+   * @param int $index
+   *
+   * @return string|int
+   */
+  public function keyAt(int $index): string|int {
+    if ($this->has_sequential_keys) {
+      return $index;
+    }
+
+    $count = $this->count();
+    return ($count > $index) ? $this->key_references[$index] : -1;
   }
 
   /**
@@ -158,7 +219,7 @@ class Collection implements \ArrayAccess, \Countable, \Iterator {
 
   /**
    * Returns the first contained item in the list
-   * @return \Drupal\entity_decorator\Base\EntityDecoratorBase|null
+   * @return mixed
    */
   public function first(): mixed {
     $array = $this->items;
@@ -167,11 +228,45 @@ class Collection implements \ArrayAccess, \Countable, \Iterator {
 
   /**
    * Returns the final contained item in the list
-   * @return \Drupal\entity_decorator\Base\EntityDecoratorBase|null
+   * @return mixed
    */
   public function last(): mixed {
     $array = $this->items;
     return end($array);
+  }
+
+  /**
+   * Returns the type of uniformed collection
+   * @return string
+   */
+  public function getType(): string {
+    return $this->collection_type;
+  }
+
+  /**
+   * Returns whether the collection consists of EntityDecorator items
+   * @return bool
+   */
+  public function isEntityCollection(): bool {
+    $type = $this->getType();
+    return has_interface($type, EntityDecoratorInterface::class);
+  }
+
+  /**
+   * Returns whether the collection consists of scalar value items
+   * @return bool
+   */
+  public function isScalarCollection(): bool {
+    $type = $this->getType();
+    return in_array($type, ['string', 'int', 'double', 'boolean', 'NULL']);
+  }
+
+  /**
+   * Returns whether the collection is empty of items
+   * @return bool
+   */
+  public function isEmpty(): bool {
+    return empty($this->items);
   }
 
   /**

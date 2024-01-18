@@ -28,6 +28,10 @@ function has_trait(string $class, string $trait, bool $autoload = true): bool {
   return in_array($trait, class_uses_deep($class, $autoload));
 }
 
+function has_interface(string $class, string $interface, bool $autoload = true): bool {
+  return in_array($interface, class_implements($class, $autoload));
+}
+
 /*
  * =============================================================================
  * [ STRING UTILITY FUNCTIONS ]

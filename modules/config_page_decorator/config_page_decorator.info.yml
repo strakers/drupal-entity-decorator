@@ -4,7 +4,7 @@ type: module
 core_version_requirement: ^9.5 || ^10
 version: "1.0.0"
 project: "config_page_decorator"
-package: "Config Page Decorator"
+package: "Entity Decorator API"
 dependencies:
-  - "entity_decorator:entity_decorator"
+  - "entity_decorator_api:entity_decorator_api"
   - "config_pages:config_pages"

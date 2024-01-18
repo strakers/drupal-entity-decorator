@@ -1,9 +1,9 @@
-name: Entity Decorator
+name: Entity Decorator API
 description: Provides decorator classes for working with Entity data
 type: module
 core_version_requirement: ^9.5 || ^10
 version: "1.0.0"
-project: "entity_decorator"
-package: "Entity Decorator"
+project: "entity_decorator_api"
+package: "Entity Decorator API"
 dependencies:
   - "drupal:entity"

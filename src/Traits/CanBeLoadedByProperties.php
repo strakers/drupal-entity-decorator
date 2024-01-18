@@ -2,6 +2,8 @@
 
 namespace Drupal\entity_decorator\Traits;
 
+use Drupal\entity_decorator\Support\DataType\Collection;
+
 trait CanBeLoadedByProperties {
 
   /**
@@ -33,9 +35,9 @@ trait CanBeLoadedByProperties {
    * @param array $props
    * @param array $defaults
    *
-   * @return array
+   * @return Collection
    */
-  public static function loadByProperties(array $props, array $defaults = []): array {
+  public static function loadByProperties(array $props, array $defaults = []): Collection {
     $set = [];
     $entity_type_id = static::$entity_type_id ?? static::getEntityTypeFromClassName() ?? '';
     $results = static::getEntitiesByProperties($entity_type_id, $props + $defaults);
@@ -45,7 +47,8 @@ trait CanBeLoadedByProperties {
         $set[$key] = new static($entity);
       }
     }
-    return $set;
+
+    return new Collection($set);
   }
 
   /**

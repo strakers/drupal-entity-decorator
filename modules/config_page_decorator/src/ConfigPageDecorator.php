@@ -22,7 +22,7 @@ class ConfigPageDecorator extends ContentEntityDecoratorBase {
   /**
    * @inheritDoc
    */
-  protected static function getClassOrModelName(): string {
+  public static function getClassOrModelName(): string {
     return 'Drupal\config_pages\Entity\ConfigPages';
   }
 
@@ -31,7 +31,7 @@ class ConfigPageDecorator extends ContentEntityDecoratorBase {
    * @return string
    */
   public function label(): string {
-    return $this->getFieldData('label');
+    return $this->getRawData('label');
   }
 
   /**
@@ -39,8 +39,15 @@ class ConfigPageDecorator extends ContentEntityDecoratorBase {
    * @return DateTime|null
    */
   public function getLastUpdated(): ?DateTime {
-    $changed = $this->getFieldData('changed');
+    $changed = $this->getRawData('changed');
     return $changed ? new DateTime("@{$changed}") : null;
+  }
+
+  public function getAccessFormatters(): array {
+    // TODO: Implement casts() method.
+    return [
+      'changed' => 'dateTime',
+    ];
   }
 
 }

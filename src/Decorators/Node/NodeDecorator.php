@@ -12,7 +12,7 @@ class NodeDecorator extends \Drupal\entity_decorator\Base\ContentEntityDecorator
 
   protected static LanguageInterface $language_manager;
 
-  protected static function getClassOrModelName(): string {
+  public static function getClassOrModelName(): string {
     return 'Drupal\node\Entity\Node';
   }
 

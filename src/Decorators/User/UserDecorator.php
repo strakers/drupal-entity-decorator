@@ -4,7 +4,7 @@ namespace Drupal\entity_decorator\Decorators\User;
 
 class UserDecorator extends \Drupal\entity_decorator\Base\ContentEntityDecoratorBase {
 
-  protected static function getClassOrModelName(): string {
+  public static function getClassOrModelName(): string {
     return 'Drupal\user\Entity\User';
   }
 

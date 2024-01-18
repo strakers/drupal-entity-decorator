@@ -15,9 +15,11 @@ abstract class EntityDecoratorBase implements EntityDecoratorInterface {
   use CanBeLoadedByProperties;
 
   protected static LoggerInterface $logger;
+  protected readonly int|string $id;
 
   public function __construct(protected readonly EntityBase $entity) {
     static::$logger = Drupal::logger('entity_decorator');
+    $this->id = $this->entity->id();
   }
 
   /**
@@ -130,7 +132,7 @@ abstract class EntityDecoratorBase implements EntityDecoratorInterface {
    * Returns either the model name or the fully qualified class name of the entity
    * @return string
    */
-  abstract protected static function getClassOrModelName(): string;
+  abstract public static function getClassOrModelName(): string;
 
   /**
    * Retrieve entity type name from defined class path of the entity

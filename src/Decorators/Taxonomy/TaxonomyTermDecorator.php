@@ -4,6 +4,7 @@ namespace Drupal\entity_decorator\Decorators\Taxonomy;
 
 use Drupal\entity_decorator\Exceptions\ModuleClassNotEnabledException;
 use Drupal\entity_decorator\Exceptions\BadMethodCallException;
+use Drupal\entity_decorator\Support\DataType\Collection;
 
 class TaxonomyTermDecorator extends \Drupal\entity_decorator\Base\ContentEntityDecoratorBase {
 
@@ -12,14 +13,14 @@ class TaxonomyTermDecorator extends \Drupal\entity_decorator\Base\ContentEntityD
   /**
    * @inheritDoc
    */
-  protected static function getClassOrModelName(): string {
+  public static function getClassOrModelName(): string {
     return 'Drupal\taxonomy\Entity\Term';
   }
 
   /**
    * @inheritDoc
    */
-  public static function loadByProperties(array $props, array $defaults = ['status' => 1]): array {
+  public static function loadByProperties(array $props, array $defaults = ['status' => 1]): Collection {
     return parent::loadByProperties($props, $defaults);
   }
 
@@ -51,8 +52,6 @@ class TaxonomyTermDecorator extends \Drupal\entity_decorator\Base\ContentEntityD
    * Todo: Handle terms with multiple parents. Accepting PRs :)
    *
    * @return $this|null
-   * @throws ModuleClassNotEnabledException
-   * @throws BadMethodCallException
    */
   public function getParent(): ?static {
     if (($parent_id = (int)$this->getRawData('parent')) && $parent_id > 0) {
@@ -67,9 +66,9 @@ class TaxonomyTermDecorator extends \Drupal\entity_decorator\Base\ContentEntityD
    *
    * @param bool $includeInactive
    *
-   * @return array
+   * @return Collection
    */
-  public function getChildren(bool $includeInactive = false): array {
+  public function getChildren(bool $includeInactive = false): Collection {
     $statusOption = $includeInactive ? [] : [ 'status' => 1 ];
     return static::loadByProperties([
         'parent' => $this->id(),
@@ -84,7 +83,9 @@ class TaxonomyTermDecorator extends \Drupal\entity_decorator\Base\ContentEntityD
    * @return array
    */
   public function getChildLabels(bool $includeInactive = false): array {
-    return array_map(fn(self $term) => $term->label(), $this->getChildren($includeInactive));
+    return $this->getChildren($includeInactive)
+      ->map(fn(self $term) => $term->label())
+      ->all();
   }
 
   /**
@@ -105,8 +106,6 @@ class TaxonomyTermDecorator extends \Drupal\entity_decorator\Base\ContentEntityD
    *
    * @static
    * @return string
-   * @throws ModuleClassNotEnabledException
-   * @throws BadMethodCallException
    */
   public static function getLabelById(int|string $id): string {
     return ($term = static::load($id)) ? $term->label() : '';

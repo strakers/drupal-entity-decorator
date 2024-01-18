@@ -4,14 +4,16 @@ namespace Drupal\entity_decorator\Decorators\Webform;
 
 use Drupal\entity_decorator\Traits\IsUserOwned;
 use Drupal\entity_decorator\Traits\HasTimestamps;
-
+/**
+ * @method \Drupal\webform\Entity\WebformSubmission getEntity()
+ */
 class WebformSubmissionDecorator extends \Drupal\entity_decorator\Base\ContentEntityDecoratorBase {
   use IsUserOwned, HasTimestamps;
 
   /**
    * @inheritDoc
    */
-  protected static function getClassOrModelName(): string {
+  public static function getClassOrModelName(): string {
     return 'Drupal\webform\Entity\WebformSubmission';
   }
 
@@ -20,7 +22,7 @@ class WebformSubmissionDecorator extends \Drupal\entity_decorator\Base\ContentEn
    */
   public function setRawData(string $field_name, $value): void {
     // if (array_key_exists($field_name, $this->listAllWebformFieldNames()))
-      $this->getEntity()->setElementData($field_name, $value);
+    $this->getEntity()->setElementData($field_name, $value);
   }
 
   /**

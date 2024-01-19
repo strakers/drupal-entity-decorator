@@ -245,7 +245,7 @@ class Collection implements \ArrayAccess, \Countable, \Iterator {
    */
   public function first(): mixed {
     $array = $this->items;
-    return reset($array);
+    return reset($array) ?: null;
   }
 
   /**
@@ -254,7 +254,7 @@ class Collection implements \ArrayAccess, \Countable, \Iterator {
    */
   public function last(): mixed {
     $array = $this->items;
-    return end($array);
+    return end($array) ?: null;
   }
 
   /**

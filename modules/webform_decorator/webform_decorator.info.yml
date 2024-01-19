@@ -1,0 +1,10 @@
+name: Webform Decorator
+description: Provides Webform decorator classes for the Entity Decorator API
+type: module
+core_version_requirement: ^9.5 || ^10
+version: 1.0.0
+project: "webform_decorator"
+package: "Entity Decorator API"
+dependencies:
+  - entity_decorator_api:entity_decorator_api
+  - webform:webform

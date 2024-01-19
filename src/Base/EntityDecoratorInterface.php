@@ -1,57 +1,46 @@
 <?php
 
-namespace Drupal\entity_decorator\Base;
+namespace Drupal\entity_decorator_api\Base;
 
-use Drupal\Core\Entity\ContentEntityBase;
+use Drupal\Core\Entity\EntityBase;
+use Drupal\entity_decorator_api\Support\Types\Collection;
 
 interface EntityDecoratorInterface {
   /**
    * Retrieves the ID reference of the entity
    * @return int|string
    */
-  public function getId(): int|string;
+  public function id(): int|string;
 
   /**
    * Retrieves the UUID reference of the entity
    * @return string
    */
-  public function getUuid(): string;
+  public function uuid(): string;
+
+  /**
+   * Retrieves the bundle/entity type of the entity
+   * @return int|string
+   */
+  public function bundle(): int|string;
+
+  /**
+   * Retrieves the label/title of the entity
+   * @return string
+   */
+  public function label(): string;
 
   /**
    * Exposes the entity for access to its methods and properties
-   * @return \Drupal\Core\Entity\ContentEntityBase
+   * @return \Drupal\Core\Entity\EntityBase
    */
-  public function getEntity(): ContentEntityBase;
+  public function getEntity(): EntityBase;
 
   /**
-   * Update an entity's data field value
-   * @param string $field_name
-   * @param $value
-   *
-   * @return void
+   * Saves the entity permanently.
+   * @return mixed
    */
-  public function setFieldData(string $field_name, $value): void;
-
-  /**
-   * Retrieve an entity's data field value
-   * @param string $field_name
-   * @param $fallback
-   *
-   * @return ?
-   */
-  public function getFieldData(string $field_name, $fallback = null);
-
-  /**
-   * Retrieve an array of all an entity's data fields and their values
-   * @return array
-   */
-  public function getAllFieldData(): array;
-
-  /**
-   * List an array of all an entity's data field keys
-   * @return array
-   */
-  public function listAllFieldNames(): array;
+  public function save();
 
   /**
    * Create an accessor instance for the entity identified by $id
@@ -68,9 +57,9 @@ interface EntityDecoratorInterface {
    * @param array $props
    * @param array $defaults
    *
-   * @return array
+   * @return \Drupal\entity_decorator_api\Support\Types\Collection
    */
-  public static function loadByProperties(array $props, array $defaults = []): array;
+  public static function loadByProperties(array $props, array $defaults = []): Collection;
 
   /**
    * Load one (or less) accessor for an entity that matches the given properties
@@ -89,4 +78,12 @@ interface EntityDecoratorInterface {
    * @return static|null
    */
   public static function loadByUuid(string $uuid): ?static;
+
+  /**
+   * Decorate an existing entity
+   * @param \Drupal\Core\Entity\EntityBase $entity
+   *
+   * @return static
+   */
+  public static function decorate(EntityBase $entity): static;
 }

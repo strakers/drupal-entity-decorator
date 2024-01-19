@@ -1,6 +1,8 @@
 <?php
 
-namespace Drupal\entity_decorator\Traits;
+namespace Drupal\entity_decorator_api\Traits;
+
+use Drupal\entity_decorator_api\Support\Types\Collection;
 
 trait CanBeLoadedByProperties {
 
@@ -19,10 +21,10 @@ trait CanBeLoadedByProperties {
         ->loadByProperties($props);
     }
     catch(\Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException $e) {
-      static::$logger->warning(sprintf('The entity type "%s" is an invalid plugin definition', $entity_type_id));
+      static::logger()->warning(sprintf('The entity type "%s" is an invalid plugin definition', $entity_type_id));
     }
     catch(\Drupal\Component\Plugin\Exception\PluginNotFoundException $e) {
-      static::$logger->warning(sprintf('The entity type "%s" not found', $entity_type_id));
+      static::logger()->warning(sprintf('The entity type "%s" not found', $entity_type_id));
     }
     return [];
   }
@@ -33,11 +35,11 @@ trait CanBeLoadedByProperties {
    * @param array $props
    * @param array $defaults
    *
-   * @return array
+   * @return \Drupal\entity_decorator_api\Support\Types\Collection
    */
-  public static function loadByProperties(array $props, array $defaults = []): array {
+  public static function loadByProperties(array $props, array $defaults = []): Collection {
     $set = [];
-    $entity_type_id = static::$entity_type_id ?? '';
+    $entity_type_id = static::$entity_type_id ?? static::getEntityTypeFromClassName() ?? '';
     $results = static::getEntitiesByProperties($entity_type_id, $props + $defaults);
 
     foreach($results as $key => $entity) {
@@ -45,7 +47,8 @@ trait CanBeLoadedByProperties {
         $set[$key] = new static($entity);
       }
     }
-    return $set;
+
+    return new Collection($set);
   }
 
   /**

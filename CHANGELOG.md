@@ -17,5 +17,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Add save method to access entity save by @strakers in https://github.com/strakers/drupal-entity-decorator/pull/7
 
 
-[unreleased]: https://github.com/strakers/keep-a-changelog/compare/v1.0.0-alpha...HEAD
+[unreleased]: https://github.com/strakers/drupal-entity-decorator/compare/v1.0.0-alpha...HEAD
 [1.0.0-alpha]: https://github.com/strakers/drupal-entity-decorator/releases/tag/v1.0.0-alpha

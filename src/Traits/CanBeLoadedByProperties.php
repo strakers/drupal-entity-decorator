@@ -4,6 +4,9 @@ namespace Drupal\entity_decorator_api\Traits;
 
 use Drupal\entity_decorator_api\Support\Types\Collection;
 
+/**
+ * @deprecated
+ */
 trait CanBeLoadedByProperties {
 
   /**

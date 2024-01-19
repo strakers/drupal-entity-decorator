@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+* Collection methods `first()` and `last()` now return `null` instead of `false` when no value is found
+* Migrated `loadByProperties()` and related methods from trait to `EntityDecoratorBase` class.
+
+## Deprecated
+
+* `CanBeLoadedByProperties` trait is no longer required due to the migration of methods (see above).
+
 ## [1.0.0-alpha] - 2024-01-19 (Initial Release)
 
 ### Added

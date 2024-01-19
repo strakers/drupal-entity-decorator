@@ -37,6 +37,12 @@ interface EntityDecoratorInterface {
   public function getEntity(): EntityBase;
 
   /**
+   * Saves the entity permanently.
+   * @return mixed
+   */
+  public function save();
+
+  /**
    * Create an accessor instance for the entity identified by $id
    * @param string|int $id
    *

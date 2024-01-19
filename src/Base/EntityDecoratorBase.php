@@ -58,6 +58,13 @@ abstract class EntityDecoratorBase implements EntityDecoratorInterface {
     return $this->getEntity()->label();
   }
 
+  /**
+   * @inheritDoc
+   */
+  public function save() {
+    return $this->getEntity()->save();
+  }
+
 
   /**
    * @inheritDoc

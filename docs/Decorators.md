@@ -75,7 +75,7 @@ class BlockDecorator extends EntityDecoratorBase {
 ## Entity Ownership
 
 ```php
-use Drupal\entity_decorator_api\Decorators\Webform\WebformSubmissionDecorator;
+use Drupal\webform_decorator\WebformSubmissionDecorator;
 
 // collect a list of UUIDs from all owned webforms
 // when no argument is passed, passes the current user

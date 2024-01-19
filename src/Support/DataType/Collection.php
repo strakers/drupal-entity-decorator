@@ -123,6 +123,14 @@ class Collection implements \ArrayAccess, \Countable, \Iterator {
     return new static($array);
   }
 
+  public function slice(string|int $start, int $amount): static {
+    if (is_string($start)) {
+      $start = $this->indexAt($start);
+    }
+    $array = array_slice($this->items, $start, $amount, !$this->has_sequential_keys);
+    return new static($array);
+  }
+
   /**
    * Reverses the array order within a collection
    * @return $this
@@ -191,6 +199,20 @@ class Collection implements \ArrayAccess, \Countable, \Iterator {
 
     $count = $this->count();
     return ($count > $index) ? $this->key_references[$index] : -1;
+  }
+
+  /**
+   * Lookups the index for the given key
+   * @param string|int $key
+   *
+   * @return int
+   */
+  public function indexAt(string|int $key): int {
+    if ($this->has_sequential_keys) {
+      return $key;
+    }
+
+    return array_search($key, $this->key_references);
   }
 
   /**

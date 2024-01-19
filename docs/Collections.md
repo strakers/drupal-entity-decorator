@@ -148,8 +148,10 @@ while($i < $count) {
       // this works due to the difference between how index and array notation operate
       $collection[1]; // 9
         ```
+- *indexAt($index): string | int*
+    - returns the numerical index for the given key. Primarily used for associative or hybrid keyed collections
 - *keyAt($index): string | int*
-  - returns the key at the given index. Primarily used for associative or hybrid keyed collections
+    - returns the key at the given index. Primarily used for associative or hybrid keyed collections
 - *last(): mixed*
     - returns the final item in the list
 
@@ -184,6 +186,18 @@ dataset. Each method returns a new collection, preserving the original dataset f
       ```php
       $newCollection = $collection->reverse();
       $newCollection->all(); // [ 'bar' => 1999, 'baz' => 30, 'foo' => 9 ]
+      ```
+- *slice($start, $amount): Collection*
+    - extracts given amount of items from the Collection from the given start point. For associative arrays, the start
+    point can be a string key
+      ```php
+      $newCollection = $collection->slice(2, 2);
+      $newCollection->all(); // [ 'baz' => 30, 'bar' => 1999 ]
+        
+      // also, using string key
+  
+      $newCollection = $collection->slice('baz', 2);
+      $newCollection->all(); // [ 'baz' => 30, 'bar' => 1999 ]
       ```
 - *sort($callback): Collection*
     - sorts the items in the Collection according to a given logic

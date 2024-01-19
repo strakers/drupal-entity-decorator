@@ -5,6 +5,9 @@ namespace Drupal\entity_decorator_api\Decorators\Taxonomy;
 use Drupal\entity_decorator_api\Support\Types\Collection;
 use Drupal\entity_decorator_api\Base\ContentEntityDecoratorBase;
 
+/**
+ * @method \Drupal\taxonomy\Entity\Term getEntity()
+ */
 class TaxonomyTermDecorator extends ContentEntityDecoratorBase {
 
   protected static string $entity_type_id = 'taxonomy_term';

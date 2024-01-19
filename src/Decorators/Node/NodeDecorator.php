@@ -8,6 +8,9 @@ use Drupal\entity_decorator_api\Traits\HasTimestamps;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Url;
 
+/**
+ * @method \Drupal\node\Entity\Node getEntity()
+ */
 class NodeDecorator extends ContentEntityDecoratorBase {
   use IsUserOwned, HasTimestamps;
 

@@ -13,7 +13,7 @@ class UserDecorator extends ContentEntityDecoratorBase {
     return 'Drupal\user\Entity\User';
   }
 
-  public function getRoles(): string {
+  public function getRoles(): array {
     return $this->getEntity()->getRoles();
   }
 

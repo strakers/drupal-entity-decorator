@@ -1,10 +1,10 @@
 <?php
 
-namespace Drupal\entity_decorator\Support\Date;
+namespace Drupal\entity_decorator_api\Support\Types;
 
 use DateTime;
-use DateTimeInterface;
 use DateTimeZone;
+use DateTimeInterface;
 
 class DateRange implements \Stringable {
   protected DateTimeInterface $start;

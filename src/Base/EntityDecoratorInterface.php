@@ -1,9 +1,9 @@
 <?php
 
-namespace Drupal\entity_decorator\Base;
+namespace Drupal\entity_decorator_api\Base;
 
 use Drupal\Core\Entity\EntityBase;
-use Drupal\entity_decorator\Support\DataType\Collection;
+use Drupal\entity_decorator_api\Support\Types\Collection;
 
 interface EntityDecoratorInterface {
   /**
@@ -51,7 +51,7 @@ interface EntityDecoratorInterface {
    * @param array $props
    * @param array $defaults
    *
-   * @return Collection
+   * @return \Drupal\entity_decorator_api\Support\Types\Collection
    */
   public static function loadByProperties(array $props, array $defaults = []): Collection;
 

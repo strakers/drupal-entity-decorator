@@ -1,11 +1,11 @@
 <?php
 
-namespace Drupal\entity_decorator\Support\Conversion;
+namespace Drupal\entity_decorator_api\Support\Conversion;
 
-use \DateTime;
-use \DateTimeZone;
-use \DateTimeInterface;
-use Drupal\entity_decorator\Support\Date\DateRange;
+use DateTime;
+use DateTimeZone;
+use DateTimeInterface;
+use Drupal\entity_decorator_api\Support\Types\DateRange;
 
 class CastAs {
   public static function custom(mixed $value, callable $fn): mixed {

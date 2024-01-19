@@ -1,9 +1,9 @@
 <?php
 
-namespace Drupal\entity_decorator\Traits;
+namespace Drupal\entity_decorator_api\Traits;
 
-use Drupal\entity_decorator\Exceptions\BadMethodCallException;
-use Drupal\entity_decorator\Exceptions\ModuleClassNotEnabledException;
+use Drupal\entity_decorator_api\Exceptions\BadMethodCallException;
+use Drupal\entity_decorator_api\Exceptions\ModuleClassNotEnabledException;
 
 trait HasSingleInstance {
 

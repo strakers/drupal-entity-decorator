@@ -1,11 +1,12 @@
 <?php
 
-namespace Drupal\entity_decorator\Decorators\Media;
+namespace Drupal\entity_decorator_api\Decorators\Media;
 
-use Drupal\entity_decorator\Traits\IsUserOwned;
-use Drupal\entity_decorator\Traits\HasTimestamps;
+use Drupal\entity_decorator_api\Base\ContentEntityDecoratorBase;
+use Drupal\entity_decorator_api\Traits\IsUserOwned;
+use Drupal\entity_decorator_api\Traits\HasTimestamps;
 
-class MediaDecorator extends \Drupal\entity_decorator\Base\ContentEntityDecoratorBase {
+class MediaDecorator extends ContentEntityDecoratorBase {
   use IsUserOwned, HasTimestamps;
 
   /**

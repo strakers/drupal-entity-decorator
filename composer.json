@@ -1,5 +1,5 @@
 {
-  "name": "strakez/drupal-entity-decorator",
+  "name": "strakez/entity-decorator-api",
   "description": "Implements a decorator pattern to access and customize typed access to an entity's properties and methods",
   "type": "drupal-module",
   "require": {
@@ -10,7 +10,8 @@
     "drush/drush": "^11 || ^12",
     "drupal/devel": "^5.1",
     "squizlabs/php_codesniffer": "4.0.x-dev",
-    "psr/log": "3.x-dev"
+    "psr/log": "3.x-dev",
+    "phpunit/phpunit": "^9"
   },
   "license": "GPL-2.0-or-later",
   "authors": [

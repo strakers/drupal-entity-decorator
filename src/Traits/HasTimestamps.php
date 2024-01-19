@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\entity_decorator\Traits;
+namespace Drupal\entity_decorator_api\Traits;
 
 use DateTime;
 

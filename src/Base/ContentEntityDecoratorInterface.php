@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\entity_decorator\Base;
+namespace Drupal\entity_decorator_api\Base;
 
 interface ContentEntityDecoratorInterface extends EntityDecoratorInterface {
 

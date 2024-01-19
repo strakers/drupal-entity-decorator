@@ -1,10 +1,10 @@
 <?php
 
-namespace Drupal\entity_decorator\Traits;
+namespace Drupal\entity_decorator_api\Traits;
 
 use Drupal\Core\Session\AccountInterface;
-use Drupal\entity_decorator\Support\DataType\Collection;
-use function Drupal\entity_decorator\Support\Utility\has_trait;
+use Drupal\entity_decorator_api\Support\Types\Collection;
+use function Drupal\entity_decorator_api\Support\Utility\has_trait;
 
 trait IsUserOwned {
 

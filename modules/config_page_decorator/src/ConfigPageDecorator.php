@@ -2,8 +2,8 @@
 
 namespace Drupal\config_page_decorator;
 
-use Drupal\entity_decorator\Base\ContentEntityDecoratorBase;
-use Drupal\entity_decorator\Traits\HasSingleInstance;
+use Drupal\entity_decorator_api\Base\ContentEntityDecoratorBase;
+use Drupal\entity_decorator_api\Traits\HasSingleInstance;
 use Drupal\Core\Entity\EntityBase;
 use DateTime;
 

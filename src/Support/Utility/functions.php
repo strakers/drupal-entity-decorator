@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\entity_decorator\Support\Utility;
+namespace Drupal\entity_decorator_api\Support\Utility;
 
 /*
  * =============================================================================

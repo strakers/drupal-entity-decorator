@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\entity_decorator\Traits;
+namespace Drupal\entity_decorator_api\Traits;
 
-use Drupal\entity_decorator\Support\DataType\Collection;
+use Drupal\entity_decorator_api\Support\Types\Collection;
 
 trait CanBeLoadedByProperties {
 
@@ -35,7 +35,7 @@ trait CanBeLoadedByProperties {
    * @param array $props
    * @param array $defaults
    *
-   * @return Collection
+   * @return \Drupal\entity_decorator_api\Support\Types\Collection
    */
   public static function loadByProperties(array $props, array $defaults = []): Collection {
     $set = [];

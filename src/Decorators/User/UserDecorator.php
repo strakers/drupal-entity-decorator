@@ -1,8 +1,13 @@
 <?php
 
-namespace Drupal\entity_decorator\Decorators\User;
+namespace Drupal\entity_decorator_api\Decorators\User;
 
-class UserDecorator extends \Drupal\entity_decorator\Base\ContentEntityDecoratorBase {
+use Drupal\entity_decorator_api\Base\ContentEntityDecoratorBase;
+
+/**
+ * @method \Drupal\user\Entity\User getEntity()
+ */
+class UserDecorator extends ContentEntityDecoratorBase {
 
   public static function getClassOrModelName(): string {
     return 'Drupal\user\Entity\User';

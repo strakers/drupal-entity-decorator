@@ -7,7 +7,7 @@ additional functionality.
 
 ```php
 use Drupal\node\Entity\Node;
-use Drupal\entity_decorator\Decorators\Node\NodeDecorator;
+use Drupal\entity_decorator_api\Decorators\Node\NodeDecorator;
 
 // load entity decorator by id
 $node = NodeDecorator::load(1);
@@ -75,7 +75,7 @@ class BlockDecorator extends EntityDecoratorBase {
 ## Entity Ownership
 
 ```php
-use Drupal\entity_decorator\Decorators\Webform\WebformSubmissionDecorator;
+use Drupal\entity_decorator_api\Decorators\Webform\WebformSubmissionDecorator;
 
 // collect a list of UUIDs from all owned webforms
 // when no argument is passed, passes the current user

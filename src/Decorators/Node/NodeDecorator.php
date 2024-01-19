@@ -1,13 +1,14 @@
 <?php
 
-namespace Drupal\entity_decorator\Decorators\Node;
+namespace Drupal\entity_decorator_api\Decorators\Node;
 
-use Drupal\entity_decorator\Traits\IsUserOwned;
+use Drupal\entity_decorator_api\Base\ContentEntityDecoratorBase;
+use Drupal\entity_decorator_api\Traits\IsUserOwned;
+use Drupal\entity_decorator_api\Traits\HasTimestamps;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Url;
-use Drupal\entity_decorator\Traits\HasTimestamps;
 
-class NodeDecorator extends \Drupal\entity_decorator\Base\ContentEntityDecoratorBase {
+class NodeDecorator extends ContentEntityDecoratorBase {
   use IsUserOwned, HasTimestamps;
 
   protected static LanguageInterface $language_manager;

@@ -1,10 +1,11 @@
 <?php
 
-namespace Drupal\entity_decorator\Decorators\Webform;
+namespace Drupal\entity_decorator_api\Decorators\Webform;
 
-use Drupal\entity_decorator\Traits\IsUserOwned;
+use Drupal\entity_decorator_api\Base\ContentEntityDecoratorBase;
+use Drupal\entity_decorator_api\Traits\IsUserOwned;
 
-class WebformDecorator extends \Drupal\entity_decorator\Base\ContentEntityDecoratorBase {
+class WebformDecorator extends ContentEntityDecoratorBase {
   use IsUserOwned;
 
   public static function getClassOrModelName(): string {

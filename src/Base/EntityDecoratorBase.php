@@ -1,15 +1,15 @@
 <?php
 
-namespace Drupal\entity_decorator\Base;
+namespace Drupal\entity_decorator_api\Base;
 
 use Drupal\Core\Entity\EntityBase;
-use Drupal\entity_decorator\Traits\CanBeLoadedByProperties;
-use Drupal\entity_decorator\Exceptions\ModuleClassNotEnabledException;
-use Drupal\entity_decorator\Exceptions\BadMethodCallException;
+use Drupal\entity_decorator_api\Traits\CanBeLoadedByProperties;
+use Drupal\entity_decorator_api\Exceptions\ModuleClassNotEnabledException;
+use Drupal\entity_decorator_api\Exceptions\BadMethodCallException;
 use Psr\Log\LoggerInterface;
 use Drupal;
 
-use function Drupal\entity_decorator\Support\Utility\toSnakeCase;
+use function Drupal\entity_decorator_api\Support\Utility\toSnakeCase;
 
 abstract class EntityDecoratorBase implements EntityDecoratorInterface {
   use CanBeLoadedByProperties;

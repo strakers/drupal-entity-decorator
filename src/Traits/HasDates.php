@@ -1,18 +1,19 @@
 <?php
 
-namespace Drupal\entity_decorator\Traits;
+namespace Drupal\entity_decorator_api\Traits;
 
 use DateTime;
 use DateTimeInterface;
-use Drupal\entity_decorator\Support\Date\DateRange;
+use Drupal\entity_decorator_api\Support\Types\DateRange;
 
 trait HasDates {
 
   /**
    * Retrieve date range for given period
+   *
    * @param string $field_name
    *
-   * @return DateRange|null
+   * @return \Drupal\entity_decorator_api\Support\Types\DateRange|null
    */
   public function getDates(string $field_name): ?DateRange {
     $dates = $this->getFieldData($field_name);

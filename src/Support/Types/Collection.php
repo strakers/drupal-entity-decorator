@@ -1,9 +1,9 @@
 <?php
 
-namespace Drupal\entity_decorator\Support\DataType;
+namespace Drupal\entity_decorator_api\Support\Types;
 
-use Drupal\entity_decorator\Base\EntityDecoratorInterface;
-use function Drupal\entity_decorator\Support\Utility\has_interface;
+use Drupal\entity_decorator_api\Base\EntityDecoratorInterface;
+use function Drupal\entity_decorator_api\Support\Utility\has_interface;
 
 class Collection implements \ArrayAccess, \Countable, \Iterator {
   public readonly array $items;

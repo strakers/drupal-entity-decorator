@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\entity_decorator\Traits;
+namespace Drupal\entity_decorator_api\Traits;
 
-use Drupal\entity_decorator\Support\Conversion\CastAs;
+use Drupal\entity_decorator_api\Support\Conversion\CastAs;
 
 trait HasFormattedFields {
   use HasFields {

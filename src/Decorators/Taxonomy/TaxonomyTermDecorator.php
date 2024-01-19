@@ -1,12 +1,11 @@
 <?php
 
-namespace Drupal\entity_decorator\Decorators\Taxonomy;
+namespace Drupal\entity_decorator_api\Decorators\Taxonomy;
 
-use Drupal\entity_decorator\Exceptions\ModuleClassNotEnabledException;
-use Drupal\entity_decorator\Exceptions\BadMethodCallException;
-use Drupal\entity_decorator\Support\DataType\Collection;
+use Drupal\entity_decorator_api\Support\Types\Collection;
+use Drupal\entity_decorator_api\Base\ContentEntityDecoratorBase;
 
-class TaxonomyTermDecorator extends \Drupal\entity_decorator\Base\ContentEntityDecoratorBase {
+class TaxonomyTermDecorator extends ContentEntityDecoratorBase {
 
   protected static string $entity_type_id = 'taxonomy_term';
 

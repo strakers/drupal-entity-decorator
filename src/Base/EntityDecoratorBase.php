@@ -187,7 +187,7 @@ abstract class EntityDecoratorBase implements EntityDecoratorInterface {
   }
 
   /**
-   * Load a list of accessors for entities that match the given properties
+   * Load a list of entities wrapped in decorators that match the given properties
    *
    * @param array $props
    * @param array $defaults
@@ -209,7 +209,7 @@ abstract class EntityDecoratorBase implements EntityDecoratorInterface {
   }
 
   /**
-   * Load one (or less) accessor for an entity that matches the given properties
+   * Load an entity wrapped in a decorator that matches the given properties
    *
    * @param array $props
    * @param array $defaults
@@ -223,7 +223,7 @@ abstract class EntityDecoratorBase implements EntityDecoratorInterface {
   }
 
   /**
-   * Load an accessor for an entity that matches the given uuid
+   * Load an entity wrapped in a decorator that matches the given uuid
    *
    * @param string $uuid
    *

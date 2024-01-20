@@ -23,7 +23,7 @@ trait IsUserOwned {
   }
 
   /**
-   * Load entity accessors for all entities own by a given user
+   * Load entity accessors for all entities owned by a given user
    * @param string|int|AccountInterface $owner
    *
    * @return Collection

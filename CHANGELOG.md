@@ -7,10 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+* Decorators for Block and BlockContent entities.
+* Documentation file for covering usage best practices.
+
 ### Changed
 
-* Collection methods `first()` and `last()` now return `null` instead of `false` when no value is found
+* Collection methods `first()` and `last()` now return `null` instead of `false` when no value is found.
 * Migrated `loadByProperties()` and related methods from trait to `EntityDecoratorBase` class.
+* `UserDecorator` class now implements `Drupal\Core\Session\AccountInterface` to better satisfy usage requirements. Can 
+now function as a drop-in replacement for User and Account classes (for decorator purposes).
 
 ## Deprecated
 
@@ -20,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* Develop project to manage entities through the use of the decorator pattern
+* Develop project to manage entities through the use of the decorator pattern.
 * Cast field value data type by @strakers in https://github.com/strakers/drupal-entity-decorator/pull/4
 * Group multiple decorators as collection by @strakers in https://github.com/strakers/drupal-entity-decorator/pull/5
 * Add save method to access entity save by @strakers in https://github.com/strakers/drupal-entity-decorator/pull/7

@@ -30,7 +30,7 @@ class WebformSubmissionDecorator extends ContentEntityDecoratorBase {
   /**
    * @inheritDoc
    */
-  public function getFieldData(string $field_name, $fallback = null) {
+  public function get(string $field_name, $fallback = null) {
     $entity = $this->getEntity();
 
     // search for field in base entity fields

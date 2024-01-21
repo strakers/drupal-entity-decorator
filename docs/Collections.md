@@ -170,10 +170,18 @@ dataset. Each method returns a new collection, preserving the original dataset f
   - performs actions on items of the collection without mutating them
     ```php
     $products = [];
-    $newCollection = $collection->forEach(static fn($n) => $products[] = $n * 5);
+    $newCollection = $collection->forEach(function(int $n) use (&$products) {
+      $products[] = $n * 5;
+    }));
     $newCollection->all(); // [ 'foo' => 9, 'bar' => 1999, 'baz' => 30 ]
     $products; // [ 45, 9995, 150 ]
     ```
+- *keys(): Collection*
+    - extracts the keys of the Collection
+      ```php
+      $newCollection = $collection->values();
+      $newCollection->all(); // [ 'foo', 'bar', 'baz' ]
+      ```
 - *map($callback): Collection*
     - mutates each item of the Collection
       ```php

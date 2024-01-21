@@ -198,6 +198,14 @@ class Collection implements \ArrayAccess, \Countable, \Iterator {
   }
 
   /**
+   * Returns a collection of all the item's keys
+   * @return $this
+   */
+  public function keys(): static {
+    return new static($this->key_references);
+  }
+
+  /**
    * Returns the item at the specified key.
    * @param string|int $index
    *
@@ -242,14 +250,6 @@ class Collection implements \ArrayAccess, \Countable, \Iterator {
     }
 
     return array_search($key, $this->key_references);
-  }
-
-  /**
-   * Returns an array of all the item's keys
-   * @return array
-   */
-  public function keys(): array {
-    return $this->key_references;
   }
 
   /**

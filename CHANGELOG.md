@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Migrated `loadByProperties()` and related methods from trait to `EntityDecoratorBase` class.
 * `UserDecorator` class now implements `Drupal\Core\Session\AccountInterface` to better satisfy usage requirements. Can 
 now function as a drop-in replacement for User and Account classes (for decorator purposes).
+* Updated `Collection::keys()` method to return a Collection instance instead of an array.
 
 ## Deprecated
 

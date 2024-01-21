@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Decorators for Block and BlockContent entities.
 * Documentation file for covering usage best practices.
+* Two new methods to the `DateRange` class, `hasStarted` and `hasEnded` for more comparison options.
 
 ### Changed
 

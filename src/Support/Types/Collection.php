@@ -140,6 +140,12 @@ class Collection implements \ArrayAccess, \Countable, \Iterator {
     return new static($array);
   }
 
+  /**
+   * Extracts data from a collection (simplified version of map)
+   * @param string|callable $pluckable
+   *
+   * @return $this
+   */
   public function pluck(string|callable $pluckable): static {
     // execute pluckable callback function to retrieve value from collection
     if (is_callable($pluckable)) {

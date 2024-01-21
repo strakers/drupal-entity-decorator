@@ -94,6 +94,20 @@ class Collection implements \ArrayAccess, \Countable, \Iterator {
   }
 
   /**
+   * Performs an action for each item of a collection without modification
+   * @param callable|NULL $callback
+   *
+   * @return $this
+   */
+  public function forEach(callable $callback = null): static {
+    $callback ??= static fn($x, $y) => $x;
+    foreach($this->items as $key => $item) {
+      call_user_func($callback, $item, $key);
+    }
+    return $this;
+  }
+
+  /**
    * Limits the list of items within a collection
    * @param callable|NULL $callback
    *
@@ -261,6 +275,21 @@ class Collection implements \ArrayAccess, \Countable, \Iterator {
   public function last(): mixed {
     $array = $this->items;
     return end($array) ?: null;
+  }
+
+  /**
+   * Reduces the items of a collection to a single value
+   * @param callable|NULL $callback
+   *
+   * @return mixed
+   */
+  public function reduce(callable $callback = null): mixed {
+    $callback ??= static fn($x, $y) => $y;
+    $reduced_value = null;
+    foreach($this->items as $item) {
+      $reduced_value = call_user_func($callback, $item, $reduced_value);
+    }
+    return $reduced_value;
   }
 
   /**

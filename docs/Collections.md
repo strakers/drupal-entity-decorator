@@ -154,6 +154,8 @@ while($i < $count) {
     - returns the key at the given index. Primarily used for associative or hybrid keyed collections
 - *last(): mixed*
     - returns the final item in the list
+- *reduce($callback): mixed*
+    - compiles the items in a collection to a single value
 
 ### Chainable Methods
 Chainable methods return Collection instances, allowing (like the name suggests) chaining them together to mutate the 
@@ -164,6 +166,14 @@ dataset. Each method returns a new collection, preserving the original dataset f
       $newCollection = $collection->filter(static fn($n) => $n / 3 > 5);
       $newCollection->all(); // [ 'bar' => 1999, 'baz' => 30 ]
       ```
+- *forEach($callback): Collection*
+  - performs actions on items of the collection without mutating them
+    ```php
+    $products = [];
+    $newCollection = $collection->forEach(static fn($n) => $products[] = $n * 5);
+    $newCollection->all(); // [ 'foo' => 9, 'bar' => 1999, 'baz' => 30 ]
+    $products; // [ 45, 9995, 150 ]
+    ```
 - *map($callback): Collection*
     - mutates each item of the Collection
       ```php

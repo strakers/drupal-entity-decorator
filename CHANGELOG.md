@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Documentation file for covering usage best practices.
 * New methods on the `DateRange` class, `hasStarted` and `hasEnded` for more comparison options.
 * New methods on the `Collection` class, `forEach`, `reduce`, and `values` for more flexible usage.
+* New method on the `EntityDecoratorBase` class: `getEntityStorage` for more variable loading functions.
 
 ### Changed
 
@@ -22,11 +23,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 now function as a drop-in replacement for User and Account classes (for decorator purposes).
 * Updated `Collection::keys()` method to return a Collection instance instead of an array.
 
-## Deprecated
+### Deprecated
 
 * `CanBeLoadedByProperties` trait is no longer required due to the migration of methods (see above).
+* Replace usages of `EntityDecoratorBase::getEntitiesByProperties` with new `EntityDecoratorBase::getEntityStorage`. 
+Note that replacement is not drop-in usage. The respective method must be used from the returned EntityStorage object.
 
-## Fixed
+### Fixed
 
 * Bug preventing the `loadOneByProperties` method from loading entities.
 * Bug preventing `WebformSubmissionDecorator` from accessing webform element field data.

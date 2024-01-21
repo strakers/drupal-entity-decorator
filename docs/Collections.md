@@ -215,6 +215,12 @@ dataset. Each method returns a new collection, preserving the original dataset f
       $newCollection = $collection->sort(static fn($a, $b) => $n / 3 > 5);
       $newCollection->all(); // [ 'foo' => 9, 'baz' => 30, 'bar' => 1999 ]
       ```
+- *values(): Collection*
+  - strips a collection of its keys
+    ```php
+    $newCollection = $collection->values();
+    $newCollection->all(); // [ 9, 30, 1999 ]
+    ```
 
 ### Other Methods
 - *getType(): string*

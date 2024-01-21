@@ -155,6 +155,15 @@ class Collection implements \ArrayAccess, \Countable, \Iterator {
   }
 
   /**
+   * Removes the keys from a collection
+   * @return $this
+   */
+  public function values(): static {
+    $array = array_values($this->items);
+    return new static($array);
+  }
+
+  /**
    * Extracts data from a collection (simplified version of map)
    * @param string|callable $pluckable
    *

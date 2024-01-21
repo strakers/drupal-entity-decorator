@@ -165,13 +165,13 @@ abstract class EntityDecoratorBase implements EntityDecoratorInterface {
 
   /**
    * Dynamically load a list of an entity type by a given set of properties
-   * @param string $entity_type_id
+   * @param string|null $entity_type_id
    * @param array $props
    *
    * @return array
    */
-  protected static function getEntitiesByProperties(string $entity_type_id, array $props): array {
-    $logger = \Drupal::logger('nms_utility');
+  protected static function getEntitiesByProperties(?string $entity_type_id, array $props): array {
+    $entity_type_id ??= static::getEntityTypeFromClassName() ?? '';
     try {
       return \Drupal::entityTypeManager()
         ->getStorage($entity_type_id)
@@ -196,7 +196,7 @@ abstract class EntityDecoratorBase implements EntityDecoratorInterface {
    */
   public static function loadByProperties(array $props, array $defaults = []): Collection {
     $set = [];
-    $entity_type_id = static::$entity_type_id ?? static::getEntityTypeFromClassName() ?? '';
+    $entity_type_id = static::$entity_type_id ?? null;
     $results = static::getEntitiesByProperties($entity_type_id, $props + $defaults);
 
     foreach($results as $key => $entity) {
@@ -217,7 +217,7 @@ abstract class EntityDecoratorBase implements EntityDecoratorInterface {
    * @return static|null
    */
   public static function loadOneByProperties(array $props, array $defaults = []): ?static {
-    $entity_type_id = static::$entity_type_id ?? '';
+    $entity_type_id = static::$entity_type_id ?? null;
     $results = static::getEntitiesByProperties($entity_type_id, $props + $defaults);
     return !empty($results) ? new static(array_values($results)[0]) : null;
   }

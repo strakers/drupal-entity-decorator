@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `UserDecorator` class now implements `Drupal\Core\Session\AccountInterface` to better satisfy usage requirements. Can 
 now function as a drop-in replacement for User and Account classes (for decorator purposes).
 * Updated `Collection::keys()` method to return a Collection instance instead of an array.
+* Fixed a bug in preventing the `loadOneByProperties` method from loading entities.
 
 ## Deprecated
 

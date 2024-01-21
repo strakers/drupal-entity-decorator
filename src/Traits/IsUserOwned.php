@@ -16,8 +16,8 @@ trait IsUserOwned {
    */
   public function getOwner(): AccountInterface {
     $class = static::getEntityClassName();
-    if (!has_trait($class,'Drupal\user\EntityOwnerTrait')) {
-      throw new \Exception("Class does not use the EntityOwnerTrait");
+    if (!has_trait($class,'Drupal\user\EntityOwnerTrait') && !method_exists($class,'getOwner')) {
+      throw new \Exception("Class '{$class}' does not use the EntityOwnerTrait or have the `getOwner` method");
     }
     return $this->getEntity()->getOwner();
   }

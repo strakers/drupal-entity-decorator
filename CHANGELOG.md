@@ -13,7 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Documentation file for covering usage best practices.
 * New methods on the `DateRange` class, `hasStarted` and `hasEnded` for more comparison options.
 * New methods on the `Collection` class, `forEach`, `reduce`, and `values` for more flexible usage.
-* New method on the `EntityDecoratorBase` class: `getEntityStorage` for more variable loading functions.
+* New methods on the `EntityDecoratorBase` class: `getEntityStorage` for more variable loading functions, and 
+`loadMultiple` for loading a collection of decorated entities by ID.
 
 ### Changed
 
@@ -22,6 +23,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `UserDecorator` class now implements `Drupal\Core\Session\AccountInterface` to better satisfy usage requirements. Can 
 now function as a drop-in replacement for User and Account classes (for decorator purposes).
 * Updated `Collection::keys()` method to return a Collection instance instead of an array.
+* The `IsOwned::getOwner()` method now accepts entities that have the `getOwner` method but do not implement the 
+`EntityOwnerTrait` trait.
 
 ### Deprecated
 

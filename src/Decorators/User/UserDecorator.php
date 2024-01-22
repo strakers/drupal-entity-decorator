@@ -19,7 +19,7 @@ class UserDecorator extends ContentEntityDecoratorBase implements AccountInterfa
   }
 
   /**
-   * Get the user name of the user account. Alias of getAccountName()
+   * Get the username of the user account. Alias of getAccountName()
    *
    * @return string
    */

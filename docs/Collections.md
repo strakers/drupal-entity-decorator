@@ -182,6 +182,12 @@ dataset. Each method returns a new collection, preserving the original dataset f
       $newCollection = $collection->values();
       $newCollection->all(); // [ 'foo', 'bar', 'baz' ]
       ```
+- *limit($amount): Collection*
+    - limits the number of items in the Collection to the given amount
+      ```php
+      $newCollection = $collection->limit(2);
+      $newCollection->all(); // [ 'foo' => 9, 'bar' => 1999 ]
+      ```
 - *map($callback): Collection*
     - mutates each item of the Collection
       ```php

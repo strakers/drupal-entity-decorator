@@ -137,6 +137,13 @@ class Collection implements \ArrayAccess, \Countable, \Iterator {
     return new static($array);
   }
 
+  /**
+   * Extract a subset of items from the Collection
+   * @param string|int $start
+   * @param int $amount
+   *
+   * @return $this
+   */
   public function slice(string|int $start, int $amount): static {
     if (is_string($start)) {
       $start = $this->indexAt($start);
@@ -161,6 +168,17 @@ class Collection implements \ArrayAccess, \Countable, \Iterator {
   public function values(): static {
     $array = array_values($this->items);
     return new static($array);
+  }
+
+  /**
+   * Limits the amount of items in the collection to the given number
+   * @return $this
+   */
+  public function limit(int $amount): static {
+    if ($this->count() < $amount) {
+      return $this;
+    }
+    return $this->slice(0, $amount);
   }
 
   /**

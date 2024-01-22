@@ -306,15 +306,17 @@ class Collection implements \ArrayAccess, \Countable, \Iterator {
 
   /**
    * Reduces the items of a collection to a single value
-   * @param callable|NULL $callback
+   *
+   * @param callable|null $callback
+   * @param mixed|null $initial_result
    *
    * @return mixed
    */
-  public function reduce(callable $callback = null): mixed {
-    $callback ??= static fn($x, $y) => $y;
-    $reduced_value = null;
-    foreach($this->items as $item) {
-      $reduced_value = call_user_func($callback, $item, $reduced_value);
+  public function reduce(callable $callback = null, mixed $initial_result = null): mixed {
+    $callback ??= static fn($x, $y, $z) => $y;
+    $reduced_value = $initial_result;
+    foreach($this->items as $key => $item) {
+      $reduced_value = call_user_func($callback, $reduced_value, $item, $key);
     }
     return $reduced_value;
   }

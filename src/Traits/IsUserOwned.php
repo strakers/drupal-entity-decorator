@@ -2,6 +2,7 @@
 
 namespace Drupal\entity_decorator_api\Traits;
 
+use Drupal\user\Entity\User;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\entity_decorator_api\Support\Types\Collection;
 use function Drupal\entity_decorator_api\Support\Utility\has_trait;
@@ -11,19 +12,19 @@ trait IsUserOwned {
   /**
    * Retrieves the user account that "owns" this entity
    *
-   * @return AccountInterface
+   * @return AccountInterface|User
    * @throws \Exception
    */
-  public function getOwner(): AccountInterface {
+  public function getOwner(): AccountInterface|User {
     $class = static::getEntityClassName();
-    if (!has_trait($class,'Drupal\user\EntityOwnerTrait')) {
-      throw new \Exception("Class does not use the EntityOwnerTrait");
+    if (!has_trait($class,'Drupal\user\EntityOwnerTrait') && !method_exists($class,'getOwner')) {
+      throw new \Exception("Class '{$class}' does not use the EntityOwnerTrait or have the `getOwner` method");
     }
     return $this->getEntity()->getOwner();
   }
 
   /**
-   * Load entity accessors for all entities own by a given user
+   * Load entity accessors for all entities owned by a given user
    * @param string|int|AccountInterface $owner
    *
    * @return Collection

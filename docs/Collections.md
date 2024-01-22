@@ -154,17 +154,62 @@ while($i < $count) {
     - returns the key at the given index. Primarily used for associative or hybrid keyed collections
 - *last(): mixed*
     - returns the final item in the list
+- *reduce($callback = null, $initial_result = null): mixed*
+    - compiles the items in a collection to a single value
+      ```php
+      $reduced_value = $collection->reduce(
+        static function(?int $result, mixed $item, string $key) {
+          return $result + $item;
+        }
+      );
+      $reduced_value; // 2038
+      ```
+      **NOTE:** If type-hinting the first parameter of the callback, either ensure it is null-safe or pass a value of 
+  the expected type. This is because the initial result passed to the callback will be null unless specified via the 
+  `$initial_result` parameter.
+      ```php
+      $reduced_value = $collection->reduce(
+        // notice the `int` typing is not null-safe
+        static function(int $result, mixed $item, string $key) {
+          return $result + $item;
+        },
+        null,
+      );
+      // TypeError: {closure}(): Argument #1 ($result) must be of type int, null given in {closure}()
+      ```
 
 ### Chainable Methods
 Chainable methods return Collection instances, allowing (like the name suggests) chaining them together to mutate the 
 dataset. Each method returns a new collection, preserving the original dataset for possible later use.
-- *filter($callback): Collection*
+- *filter($callback = null): Collection*
     - limits the items of the Collection to a set of conditions
       ```php
       $newCollection = $collection->filter(static fn($n) => $n / 3 > 5);
       $newCollection->all(); // [ 'bar' => 1999, 'baz' => 30 ]
       ```
-- *map($callback): Collection*
+- *forEach($callback = null): Collection*
+  - performs actions on items of the collection without mutating them
+    ```php
+    $products = [];
+    $newCollection = $collection->forEach(function(int $n) use (&$products) {
+      $products[] = $n * 5;
+    }));
+    $newCollection->all(); // [ 'foo' => 9, 'bar' => 1999, 'baz' => 30 ]
+    $products; // [ 45, 9995, 150 ]
+    ```
+- *keys(): Collection*
+    - extracts the keys of the Collection
+      ```php
+      $newCollection = $collection->values();
+      $newCollection->all(); // [ 'foo', 'bar', 'baz' ]
+      ```
+- *limit($amount): Collection*
+    - limits the number of items in the Collection to the given amount
+      ```php
+      $newCollection = $collection->limit(2);
+      $newCollection->all(); // [ 'foo' => 9, 'bar' => 1999 ]
+      ```
+- *map($callback = null): Collection*
     - mutates each item of the Collection
       ```php
       $newCollection = $collection->map(static fn($n) => $n * 0.1);
@@ -199,12 +244,18 @@ dataset. Each method returns a new collection, preserving the original dataset f
       $newCollection = $collection->slice('baz', 2);
       $newCollection->all(); // [ 'baz' => 30, 'bar' => 1999 ]
       ```
-- *sort($callback): Collection*
+- *sort($callback = null): Collection*
     - sorts the items in the Collection according to a given logic
       ```php
       $newCollection = $collection->sort(static fn($a, $b) => $n / 3 > 5);
       $newCollection->all(); // [ 'foo' => 9, 'baz' => 30, 'bar' => 1999 ]
       ```
+- *values(): Collection*
+  - strips a collection of its keys
+    ```php
+    $newCollection = $collection->values();
+    $newCollection->all(); // [ 9, 30, 1999 ]
+    ```
 
 ### Other Methods
 - *getType(): string*

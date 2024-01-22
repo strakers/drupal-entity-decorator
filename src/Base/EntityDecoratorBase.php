@@ -6,6 +6,7 @@ use Drupal\Core\Entity\EntityBase;
 use Drupal\entity_decorator_api\Support\Types\Collection;
 use Drupal\entity_decorator_api\Exceptions\ModuleClassNotEnabledException;
 use Drupal\entity_decorator_api\Exceptions\BadMethodCallException;
+use Drupal\Core\Entity\EntityStorageInterface;
 use Psr\Log\LoggerInterface;
 use Drupal;
 
@@ -165,13 +166,15 @@ abstract class EntityDecoratorBase implements EntityDecoratorInterface {
 
   /**
    * Dynamically load a list of an entity type by a given set of properties
-   * @param string $entity_type_id
+   * @param string|null $entity_type_id
    * @param array $props
+   * @deprecated Instead, use the `getStorageEntity` method and return the
+   * desired method call.
    *
    * @return array
    */
-  protected static function getEntitiesByProperties(string $entity_type_id, array $props): array {
-    $logger = \Drupal::logger('nms_utility');
+  protected static function getEntitiesByProperties(?string $entity_type_id, array $props): array {
+    $entity_type_id ??= static::getEntityTypeFromClassName() ?? '';
     try {
       return \Drupal::entityTypeManager()
         ->getStorage($entity_type_id)
@@ -187,7 +190,51 @@ abstract class EntityDecoratorBase implements EntityDecoratorInterface {
   }
 
   /**
-   * Load a list of accessors for entities that match the given properties
+   * Dynamically retrieve an entity's storage manager
+   * @param string|null $entity_type_id
+   *
+   * @return \Drupal\Core\Entity\EntityStorageInterface|null
+   */
+  protected static function getStorageEntity(?string $entity_type_id): ?EntityStorageInterface {
+    $entity_type_id ??= static::getEntityTypeFromClassName() ?? '';
+    try {
+      return \Drupal::entityTypeManager()
+        ->getStorage($entity_type_id);
+    }
+    catch(\Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException $e) {
+      static::logger()->warning(sprintf('The entity type "%s" is an invalid plugin definition', $entity_type_id));
+    }
+    catch(\Drupal\Component\Plugin\Exception\PluginNotFoundException $e) {
+      static::logger()->warning(sprintf('The entity type "%s" not found', $entity_type_id));
+    }
+    return null;
+  }
+
+  /**
+   * Load a list of entities wrapped in decorators from a given set of IDs
+   * @param int[] $ids
+   *
+   * @return \Drupal\entity_decorator_api\Support\Types\Collection
+   */
+  public static function loadMultiple(array $ids = []): Collection {
+    $set = [];
+    $entity_type_id ??= static::getEntityTypeFromClassName() ?? '';
+
+    if ($storageEntity = static::getStorageEntity($entity_type_id)) {
+      $results = $storageEntity->loadMultiple($ids);
+
+      foreach($results as $key => $entity) {
+        if ($entity) {
+          $set[$key] = new static($entity);
+        }
+      }
+    }
+
+    return new Collection($set);
+  }
+
+  /**
+   * Load a list of entities wrapped in decorators that match the given properties
    *
    * @param array $props
    * @param array $defaults
@@ -196,12 +243,15 @@ abstract class EntityDecoratorBase implements EntityDecoratorInterface {
    */
   public static function loadByProperties(array $props, array $defaults = []): Collection {
     $set = [];
-    $entity_type_id = static::$entity_type_id ?? static::getEntityTypeFromClassName() ?? '';
-    $results = static::getEntitiesByProperties($entity_type_id, $props + $defaults);
+    $entity_type_id = static::$entity_type_id ?? null;
 
-    foreach($results as $key => $entity) {
-      if ($entity) {
-        $set[$key] = new static($entity);
+    if ($storageEntity = static::getStorageEntity($entity_type_id)) {
+      $results = $storageEntity->loadByProperties($props + $defaults);
+
+      foreach($results as $key => $entity) {
+        if ($entity) {
+          $set[$key] = new static($entity);
+        }
       }
     }
 
@@ -209,7 +259,7 @@ abstract class EntityDecoratorBase implements EntityDecoratorInterface {
   }
 
   /**
-   * Load one (or less) accessor for an entity that matches the given properties
+   * Load an entity wrapped in a decorator that matches the given properties
    *
    * @param array $props
    * @param array $defaults
@@ -217,13 +267,16 @@ abstract class EntityDecoratorBase implements EntityDecoratorInterface {
    * @return static|null
    */
   public static function loadOneByProperties(array $props, array $defaults = []): ?static {
-    $entity_type_id = static::$entity_type_id ?? '';
-    $results = static::getEntitiesByProperties($entity_type_id, $props + $defaults);
+    $results = [];
+    $entity_type_id = static::$entity_type_id ?? null;
+    if ($storageEntity = static::getStorageEntity($entity_type_id)) {
+      $results = $storageEntity->loadByProperties($props + $defaults);
+    }
     return !empty($results) ? new static(array_values($results)[0]) : null;
   }
 
   /**
-   * Load an accessor for an entity that matches the given uuid
+   * Load an entity wrapped in a decorator that matches the given uuid
    *
    * @param string $uuid
    *

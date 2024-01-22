@@ -44,6 +44,8 @@ $node->get('sticky'); // false
 
 For information on using and extending decorators, see the [Decorator documentation](docs/Decorators.md).
 
+For tips and best practices, see the [Tips & Best Practices](docs/BestPractices.md) section.
+
 ---
 
 ## Working with Collections

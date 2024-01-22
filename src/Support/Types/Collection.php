@@ -94,6 +94,20 @@ class Collection implements \ArrayAccess, \Countable, \Iterator {
   }
 
   /**
+   * Performs an action for each item of a collection without modification
+   * @param callable|NULL $callback
+   *
+   * @return $this
+   */
+  public function forEach(callable $callback = null): static {
+    $callback ??= static fn($x, $y) => $x;
+    foreach($this->items as $key => $item) {
+      call_user_func($callback, $item, $key);
+    }
+    return $this;
+  }
+
+  /**
    * Limits the list of items within a collection
    * @param callable|NULL $callback
    *
@@ -123,6 +137,13 @@ class Collection implements \ArrayAccess, \Countable, \Iterator {
     return new static($array);
   }
 
+  /**
+   * Extract a subset of items from the Collection
+   * @param string|int $start
+   * @param int $amount
+   *
+   * @return $this
+   */
   public function slice(string|int $start, int $amount): static {
     if (is_string($start)) {
       $start = $this->indexAt($start);
@@ -140,6 +161,32 @@ class Collection implements \ArrayAccess, \Countable, \Iterator {
     return new static($array);
   }
 
+  /**
+   * Removes the keys from a collection
+   * @return $this
+   */
+  public function values(): static {
+    $array = array_values($this->items);
+    return new static($array);
+  }
+
+  /**
+   * Limits the amount of items in the collection to the given number
+   * @return $this
+   */
+  public function limit(int $amount): static {
+    if ($this->count() < $amount) {
+      return $this;
+    }
+    return $this->slice(0, $amount);
+  }
+
+  /**
+   * Extracts data from a collection (simplified version of map)
+   * @param string|callable $pluckable
+   *
+   * @return $this
+   */
   public function pluck(string|callable $pluckable): static {
     // execute pluckable callback function to retrieve value from collection
     if (is_callable($pluckable)) {
@@ -166,6 +213,14 @@ class Collection implements \ArrayAccess, \Countable, \Iterator {
     }
 
     return $this->map($callback);
+  }
+
+  /**
+   * Returns a collection of all the item's keys
+   * @return $this
+   */
+  public function keys(): static {
+    return new static($this->key_references);
   }
 
   /**
@@ -216,14 +271,6 @@ class Collection implements \ArrayAccess, \Countable, \Iterator {
   }
 
   /**
-   * Returns an array of all the item's keys
-   * @return array
-   */
-  public function keys(): array {
-    return $this->key_references;
-  }
-
-  /**
    * Counts the number of items contained
    * @return int
    */
@@ -255,6 +302,23 @@ class Collection implements \ArrayAccess, \Countable, \Iterator {
   public function last(): mixed {
     $array = $this->items;
     return end($array) ?: null;
+  }
+
+  /**
+   * Reduces the items of a collection to a single value
+   *
+   * @param callable|null $callback
+   * @param mixed|null $initial_result
+   *
+   * @return mixed
+   */
+  public function reduce(callable $callback = null, mixed $initial_result = null): mixed {
+    $callback ??= static fn($x, $y, $z) => $y;
+    $reduced_value = $initial_result;
+    foreach($this->items as $key => $item) {
+      $reduced_value = call_user_func($callback, $reduced_value, $item, $key);
+    }
+    return $reduced_value;
   }
 
   /**

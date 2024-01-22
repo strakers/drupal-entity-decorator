@@ -49,6 +49,24 @@ class DateRange implements \Stringable {
   }
 
   /**
+   * Determine if the start of the date range has passed.
+   * @return bool
+   */
+  public function hasStarted(): bool {
+    $date = new DateTime();
+    return $this->getStart() <= $date;
+  }
+
+  /**
+   * Determine if the end of the date range has passed.
+   * @return bool
+   */
+  public function hasEnded(): bool {
+    $date = new DateTime();
+    return $date >= $this->getEnd();
+  }
+
+  /**
    * Utility for retrieving a timezone from a string or timezone format
    * @param \DateTimeZone|string $timezone
    *

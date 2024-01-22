@@ -20,7 +20,7 @@
       "email": "s.straker@utoronto.ca"
     }
   ],
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
   "config": {
     "preferred-install": "dist",
     "sort-packages": false,

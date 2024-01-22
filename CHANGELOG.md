@@ -48,4 +48,5 @@ Note that replacement is not drop-in usage. The respective method must be used f
 
 
 [unreleased]: https://github.com/strakers/drupal-entity-decorator/compare/v1.0.0-alpha...HEAD
+[1.0.0-beta]: https://github.com/strakers/drupal-entity-decorator/compare/v1.0.0-alpha...v1.0.0-alpha
 [1.0.0-alpha]: https://github.com/strakers/drupal-entity-decorator/releases/tag/v1.0.0-alpha

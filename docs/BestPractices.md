@@ -44,9 +44,9 @@ if (isset($collection[0])) {
 
 // or, using length check
 
-if($collection->count() > 3) {
+if($collection->count() > 2) {
   // can now use any of the following:
-  // $collection[0], $collection[1], or $collection[3]
+  // $collection[0], $collection[1], or $collection[2]
 }
 ```
 

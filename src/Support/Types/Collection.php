@@ -397,4 +397,15 @@ class Collection implements \ArrayAccess, \Countable, \Iterator {
   public function rewind(): void {
     $this->position = 0;
   }
+
+  /**
+   * Provides a static means of converting an array to a collection
+   * @param array $data
+   * @param bool $preserve_keys
+   *
+   * @return static
+   */
+  public static function create(array $data, bool $preserve_keys = true): static {
+    return new static($data, $preserve_keys);
+  }
 }

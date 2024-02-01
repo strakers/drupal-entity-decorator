@@ -5,7 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Roadmap]
+What's in the pipeline to come. (Click title for changes.)
+
 ## [Unreleased]
+
+Committed for the next release:
+
+### Added
+
+* New static method on the `Collection` class, `create` to make Collections on the fly with easy chaining of 
+subsequent methods.
 
 ## [1.0.0-beta] - 2024-01-22
 
@@ -49,6 +59,7 @@ Note that replacement is not drop-in usage. The respective method must be used f
 * Add save method to access entity save by @strakers in https://github.com/strakers/drupal-entity-decorator/pull/7
 
 
-[unreleased]: https://github.com/strakers/drupal-entity-decorator/compare/v1.0.0-alpha...HEAD
-[1.0.0-beta]: https://github.com/strakers/drupal-entity-decorator/compare/v1.0.0-alpha...v1.0.0-alpha
+[roadmap]: https://github.com/strakers/drupal-entity-decorator/compare/HEAD...develop
+[unreleased]: https://github.com/strakers/drupal-entity-decorator/compare/v1.0.0-beta...HEAD
+[1.0.0-beta]: https://github.com/strakers/drupal-entity-decorator/compare/v1.0.0-alpha...v1.0.0-beta
 [1.0.0-alpha]: https://github.com/strakers/drupal-entity-decorator/releases/tag/v1.0.0-alpha

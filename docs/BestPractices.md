@@ -1,9 +1,9 @@
-# Best Practices & Tips
+# Tips & Best Practices
 
 ## Table of Contents
-* [#1](#check-for-existence-after-loading-decorator): Check for existence after loading decorator
-* [#2](#alias-decorator-class-name-for-easier-access): Alias decorator class name for easier access
-* [#3](#add-phpdoc-return-value-for-getentity-method-when-extending-classes): Add PHPDoc return value for getEntity method when extending classes
+* [01](#check-for-existence-after-loading-decorator): Check for existence after loading decorator
+* [02](#alias-decorator-class-name-for-easier-access): Alias decorator class name for easier access
+* [03](#add-phpdoc-return-value-for-getentity-method-when-extending-classes): Add PHPDoc return value for getEntity method when extending classes
 
 ## Check for existence after loading decorator
 
@@ -44,9 +44,9 @@ if (isset($collection[0])) {
 
 // or, using length check
 
-if($collection->count() > 3) {
+if($collection->count() > 2) {
   // can now use any of the following:
-  // $collection[0], $collection[1], or $collection[3]
+  // $collection[0], $collection[1], or $collection[2]
 }
 ```
 

@@ -86,8 +86,12 @@ trait HasFields {
           $data_value = (count($keyed_array) === 1) ? reset($keyed_array) : $keyed_array;
       }
       else {
-        // return list of values
-        $data_value = $value_array;
+        // return list of values if only real values in value array
+        $data_value = match(true) {
+          array_key_exists('value', $value_array) => $value_array['value'],
+          array_key_exists('target_id', $value_array) => $value_array['target_id'],
+          default => $value_array,
+        };
       }
     }
 

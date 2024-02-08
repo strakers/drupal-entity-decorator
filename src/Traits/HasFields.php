@@ -73,7 +73,7 @@ trait HasFields {
     $data_value = null;
 
     // when one item in array
-    if (count($value_array) === 1) {
+    if (count($value_array) === 1 || count($value_array) === 2 && array_key_exists('_attributes', $value_array)) {
       if (isset($value_array[0])) {
         $keyed_array = $value_array[0];
 

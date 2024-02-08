@@ -38,6 +38,7 @@ class CastAs {
 
   public static function string(mixed $value): string {
     return match(true) {
+      is_array($value) && array_key_exists('value', $value) => $value['target_id'],
       is_scalar($value),
         is_array($value),
         method_exists($value,'__toString') => (string) $value,
@@ -47,7 +48,10 @@ class CastAs {
   }
 
   public static function integer(mixed $value): int {
-    return is_numeric($value) ? (int)$value : NAN;
+    return is_numeric($value) ? (int)$value : match(true) {
+      is_array($value) && array_key_exists('target_id', $value) => $value['target_id'],
+      default => NAN,
+    };
   }
 
   public static function float(mixed $value): float {

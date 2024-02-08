@@ -17,6 +17,9 @@ Committed for the next release:
 * New static method on the `Collection` class, `create` to make Collections on the fly with easy chaining of 
 subsequent methods.
 
+### Fixed
+* Better interpretation of value from `$entity->get()` when field returns array value
+
 ## [1.0.0-beta] - 2024-01-22
 
 ### Added

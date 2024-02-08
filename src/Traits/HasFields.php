@@ -73,7 +73,7 @@ trait HasFields {
     $data_value = null;
 
     // when one item in array
-    if (count($value_array) === 1 || count($value_array) === 2 && array_key_exists('_attributes', $value_array)) {
+    if (count($value_array) === 1) {
       if (isset($value_array[0])) {
         $keyed_array = $value_array[0];
 
@@ -82,8 +82,12 @@ trait HasFields {
           $data_value = $fallback;
 
         // return value item if singular array or entire array if multiple
-        else
+        else {
+          if (count($keyed_array) === 2 && array_key_exists('_attributes', $keyed_array)) {
+            unset($keyed_array['_attributes']);
+          }
           $data_value = (count($keyed_array) === 1) ? reset($keyed_array) : $keyed_array;
+        }
       }
       else {
         // return list of values if only real values in value array

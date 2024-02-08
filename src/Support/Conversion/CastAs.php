@@ -38,7 +38,7 @@ class CastAs {
 
   public static function string(mixed $value): string {
     return match(true) {
-      is_array($value) && array_key_exists('value', $value) => $value['target_id'],
+      is_array($value) && array_key_exists('value', $value) => $value['value'],
       is_scalar($value),
         is_array($value),
         method_exists($value,'__toString') => (string) $value,
